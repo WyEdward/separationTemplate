@@ -1,0 +1,3 @@
+# Project exclude paths
+/separation-backend/micronote-manage/target/
+/separation-backend/separation-core/target/

@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    # 环境 开发dev，测试test，生产prod
+    active: dev
+
+#mybatis配置
+mybatis:
+  typeAliasesPackage: cn.wyedward.core.entity
+  mapperLocations: classpath:mappers/**/*Mapper.xml
+  #configLocation: classpath:/mybatis-config.xml

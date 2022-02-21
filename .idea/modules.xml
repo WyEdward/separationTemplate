@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/separation-backend/micronote-manage/micronote-manage.iml" filepath="$PROJECT_DIR$/separation-backend/micronote-manage/micronote-manage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/separation-backend/separation-auth/separation-auth.iml" filepath="$PROJECT_DIR$/separation-backend/separation-auth/separation-auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/separation-backend/separation-backend.iml" filepath="$PROJECT_DIR$/separation-backend/separation-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/separation-backend/separation-core/separation-core.iml" filepath="$PROJECT_DIR$/separation-backend/separation-core/separation-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/separation-manage-front/separation-manage-front.iml" filepath="$PROJECT_DIR$/separation-manage-front/separation-manage-front.iml" />
+    </modules>
+  </component>
+</project>
