@@ -38,9 +38,9 @@ module.exports = {
       '@': resolve('src'),
     }
   },
-  module: {
+  module: {                
     rules: [
-      ...(config.dev.useEslint ? [createLintingRule()] : []),
+      ...(config.dev.useEslint ? [] : []),
       {
         test: /\.vue$/,
         loader: 'vue-loader',

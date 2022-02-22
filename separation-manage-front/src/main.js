@@ -2,14 +2,18 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
-
+import router from './router'      //路由
+import api from './api/install'    //axios申请接口
+import store from './store'  //VueX统一状态管理e
+import ElementUI from 'element-ui';  //ElementUI
 Vue.config.productionTip = false
 
+Vue.use(ElementUI);             //使用ElementUI
+Vue.use(api);                //使用axios
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  router,
+  router,store,                 //使用route和VueX
   components: { App },
   template: '<App/>'
 })
