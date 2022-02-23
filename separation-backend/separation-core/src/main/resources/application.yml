@@ -4,7 +4,11 @@ spring:
     active: dev
 
 #mybatis配置
-mybatis:
+mybatis-plus:
   typeAliasesPackage: cn.wyedward.core.entity
-  mapperLocations: classpath:mappers/**/*Mapper.xml
-  #configLocation: classpath:/mybatis-config.xml
+  mapper-locations: classpath:mappers/**/*Mapper.xml
+  global-config:
+    db-config:
+      table-prefix: test_
+
+

@@ -27,7 +27,7 @@
         <springboot.version>2.2.4.RELEASE</springboot.version>
         <mysql.version>5.1.2</mysql.version>
         <druid.version>1.0.9</druid.version>
-        <mybaits.version>1.1.1</mybaits.version>
+        <mybaitsPlus.version>3.3.0</mybaitsPlus.version>
         <swagger.version>2.6.1</swagger.version>
         <thymeleaf.version>3.1.12</thymeleaf.version>
         <springsecurity.version>2.3.1.RELEASE</springsecurity.version>
@@ -80,9 +80,9 @@
             </dependency>
             <!--mybatis-->
             <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybaits.version}</version>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybaitsPlus.version}</version>
             </dependency>
             <!--web相关的包-->
             <!--shiro-->
