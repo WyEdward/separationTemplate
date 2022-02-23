@@ -1,18 +1,17 @@
 package cn.wyedward.core.entity;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
-public class UserInfo {
+public class UserRole {
     @TableId(type = IdType.ASSIGN_ID)
-    private Long id;
-    private String userName;
-    private String passWord;
-    private Integer age;
-    private Integer roleId;
+    private Long roleId;
+    private String roleName;
+
     @TableField(exist = false)
-    private UserRole userRole;
+    private List<UserInfo> userInfos;
 }

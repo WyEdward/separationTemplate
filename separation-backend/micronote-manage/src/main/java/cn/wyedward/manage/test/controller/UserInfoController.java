@@ -1,8 +1,9 @@
 package cn.wyedward.manage.test.controller;
-import cn.wyedward.core.entity.User;
 import cn.wyedward.core.entity.UserInfo;
+import cn.wyedward.core.entity.UserRole;
+import cn.wyedward.core.mapper.UserRoleMapper;
 import cn.wyedward.manage.test.service.UserInfoService;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,5 @@ public class UserInfoController {
     public List<UserInfo> listUserInfos(){
         return userInfoService.list();
     }
-
 
 }
