@@ -6,6 +6,8 @@ import router from './router'      //路由
 import api from './api/install'    //axios申请接口
 import store from './store'  //VueX统一状态管理e
 import ElementUI from 'element-ui';  //ElementUI
+import 'element-ui/lib/theme-chalk/index.css';
+import './assets/icons/iconfont.css'
 Vue.config.productionTip = false
 
 Vue.use(ElementUI);             //使用ElementUI

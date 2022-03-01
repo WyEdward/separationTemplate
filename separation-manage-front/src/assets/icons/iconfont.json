@@ -1,0 +1,37 @@
+{
+  "id": "1758018",
+  "name": "micronoto",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "收藏的icon",
+  "glyphs": [
+    {
+      "icon_id": "1312054",
+      "name": "关闭",
+      "font_class": "guanbi",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "1638281",
+      "name": "下箭头",
+      "font_class": "xiajiantou",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "4734118",
+      "name": "关闭",
+      "font_class": "ic_close",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "10390906",
+      "name": "导航",
+      "font_class": "navicon",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    }
+  ]
+}

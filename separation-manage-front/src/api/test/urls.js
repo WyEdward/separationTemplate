@@ -3,5 +3,5 @@ import globalVariable from '@/common/global_variable.js';
 const baseUrl = globalVariable.baseUrl
 export default{
   //列举用户
-  listUsers: baseUrl + '/user/listUsers',
+  listUsers: baseUrl + '/userInfo/test2',
 }

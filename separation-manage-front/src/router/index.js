@@ -1,21 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import test from '@/views/test'
 Vue.use(Router)
+
+
+import Index from '@/views/layout'
+
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '/index',
+      name: 'Index',
+      component: Index,
+      meta: {
+        requiresAuth: true,
+        name: '主页'
+      },
+      children: []
     },
-    {
-      path: '/test',
-      name: 'test',
-      component: test
-    }
 
   ]
 })
