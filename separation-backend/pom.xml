@@ -11,7 +11,7 @@
     <modules>
         <module>separation-core</module>
         <module>separation-auth</module>
-        <module>micronote-manage</module>
+        <module>separation-manage</module>
     </modules>
 
     <parent>

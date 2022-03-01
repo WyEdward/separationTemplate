@@ -3,12 +3,5 @@ spring:
     # 环境 开发dev，测试test，生产prod
     active: dev
 
-#mybatis配置
-mybatis-plus:
-  typeAliasesPackage: cn.wyedward.core.entity
-  mapper-locations: classpath:mappers/**/*Mapper.xml
-  global-config:
-    db-config:
-      table-prefix: test_
 
 

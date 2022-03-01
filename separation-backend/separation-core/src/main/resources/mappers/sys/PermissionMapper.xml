@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wyedward.core.mapper.PermissionMapper" >
+    <resultMap id="BaseResultMap" type="cn.wyedward.core.entity.Permission">
+        <id column="permission_id" property="permissionId" jdbcType="INTEGER" />
+        <result column="permission_unique_id" property="permissionUniqueId" jdbcType="BIGINT" />
+        <result column="permission_url" property="permissionUrl" jdbcType="VARCHAR" />
+        <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
+        <result column="permission_description" property="permissionDescription" jdbcType="VARCHAR" />
+        <result column="permission_fid" property="permissionFid" jdbcType="INTEGER" />
+        <result column="permission_enable" property="permissionEnable" jdbcType="CHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        permission_id, permission_unique_id, permission_url, permission_name, permission_description, permission_fid, permission_enable
+    </sql>
+
+    <!--根据用户名去查找权限集合-->
+    <select id="findByUserName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+            p.permission_id,
+            p.permission_url,
+            p.permission_name
+        FROM
+            sr_permission p
+                LEFT JOIN sr_role_permission rp ON (p.`permission_id` = rp.`pid`)
+                LEFT JOIN sr_role r ON (r.`role_id` = rp.`rid`)
+                LEFT JOIN sr_user_role ur ON (ur.`rid` = r.`role_id`)
+                LEFT JOIN sr_user u ON (u.`user_id` = ur.`uid`)
+        WHERE u.user_name = #{userName,jdbcType=VARCHAR}
+    </select>
+</mapper>
