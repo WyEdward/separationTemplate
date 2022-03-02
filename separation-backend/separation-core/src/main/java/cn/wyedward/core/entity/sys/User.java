@@ -25,5 +25,5 @@ public class User implements Serializable{
     private Date UpdateTime; //用户更新时间
     private String userEmail; //用户邮箱
     private String userAvatar; //用户头像
-    private char userEnable; //是否删除
+    private int userEnable; //是否删除
 }

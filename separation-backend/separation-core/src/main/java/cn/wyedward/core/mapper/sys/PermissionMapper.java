@@ -1,7 +1,6 @@
 package cn.wyedward.core.mapper.sys;
 
 import cn.wyedward.core.entity.sys.Permission;
-import cn.wyedward.core.entity.sys.Role;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

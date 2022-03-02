@@ -8,7 +8,7 @@
         <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
         <result column="permission_description" property="permissionDescription" jdbcType="VARCHAR" />
         <result column="permission_fid" property="permissionFid" jdbcType="INTEGER" />
-        <result column="permission_enable" property="permissionEnable" jdbcType="CHAR" />
+        <result column="permission_enable" property="permissionEnable" jdbcType="INTEGER" />
     </resultMap>
 
     <sql id="Base_Column_List" >
@@ -19,7 +19,7 @@
     <select id="findByUserName" resultMap="BaseResultMap" parameterType="java.lang.String">
         SELECT
             p.permission_id,
-            p.permission_url,
+            p.permission_url ,
             p.permission_name
         FROM
             sr_permission p
@@ -27,6 +27,6 @@
                 LEFT JOIN sr_role r ON (r.`role_id` = rp.`rid`)
                 LEFT JOIN sr_user_role ur ON (ur.`rid` = r.`role_id`)
                 LEFT JOIN sr_user u ON (u.`user_id` = ur.`uid`)
-        WHERE u.user_name = #{userName,jdbcType=VARCHAR}
+        WHERE u.user_name = #{userName,jdbcType=VARCHAR} and u.user_enable = 0
     </select>
 </mapper>

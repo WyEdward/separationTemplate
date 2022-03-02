@@ -12,8 +12,8 @@ import java.util.Date;
 
 public class JwtUtil {
     // 过期时间 24 小时
-    private static final long EXPIRE_TIME = 10 * 60 * 1000;//token到期时间10分钟，毫秒为单位
-    public static final long REFRESH_EXPIRE_TIME = 60 * 60;//RefreshToken到期时间为一小时，秒为单位
+    private static final long EXPIRE_TIME =  60 * 60 * 1000;//token到期时间1小时，毫秒为单位
+    public static final long REFRESH_EXPIRE_TIME = 12 * 60 * 60;//RefreshToken到期时间为12小时，秒为单位
     // 密钥
     private static final String SECRET = "SHIRO+JWT";
 

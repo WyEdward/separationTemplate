@@ -18,7 +18,7 @@ public class Permission implements Serializable {
     private long permissionUnique; //权限唯一id
     private String permissionUrl; //前端router_url
     private String permissionName; //后端shiro权限命名
-    private String permissionDescription; //描述
+    private String permissionDescription; //描述int
     private int permissionFid; //父权限id
-    private char permissionEnable; //是否删除 0就是删除
+    private int permissionEnable; //是否删除 1就是删除
 }

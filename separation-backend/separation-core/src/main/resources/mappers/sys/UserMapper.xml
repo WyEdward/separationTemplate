@@ -12,7 +12,7 @@
         <result column="update_time" property="updateTime" jdbcType="DATE" />
         <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
         <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR" />
-        <result column="user_enable" property="userEnable" jdbcType="CHAR" />
+        <result column="user_enable" property="userEnable" jdbcType="INTEGER" />
     </resultMap>
 
     <sql id="Base_Column_List" >

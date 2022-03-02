@@ -16,5 +16,5 @@ public class Role implements Serializable {
     private long uniqueId;  //角色唯一id
     private String roleName; //角色名字
     private String roleDescription; //角色描述
-    private char roleEnable; //角色是否删除
+    private int roleEnable; //角色是否删除
 }

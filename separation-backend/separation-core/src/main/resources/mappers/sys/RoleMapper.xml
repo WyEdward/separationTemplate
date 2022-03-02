@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.wyedward.core.mapper.sys.RoleMapper" >
-    <resultMap id="BaseResultMap" type="cn.wyedward.core.entity.sys.User">
+    <resultMap id="BaseResultMap" type="cn.wyedward.core.entity.sys.Role">
         <id column="role_id" property="roleId" jdbcType="INTEGER" />
         <result column="role_unique_id" property="roleUniqueId" jdbcType="BIGINT" />
         <result column="role_name" property="roleName" jdbcType="VARCHAR" />
         <result column="role_description" property="roleDescription" jdbcType="VARCHAR" />
-        <result column="role_enable" property="roleEnable" jdbcType="CHAR" />
+        <result column="role_enable" property="roleEnable" jdbcType="INTEGER" />
     </resultMap>
 
     <sql id="Base_Column_List" >
@@ -22,7 +22,7 @@
             sr_role r
         LEFT JOIN sr_user_role ur ON (r.`role_id` = ur.`rid`)
         LEFT JOIN sr_user u ON (u.`user_id` = ur.`uid`)
-        WHERE u.user_name = #{userName,jdbcType=VARCHAR}
+        WHERE u.user_name = #{userName,jdbcType=VARCHAR} and u.user_enable = 0
     </select>
 
 </mapper>
