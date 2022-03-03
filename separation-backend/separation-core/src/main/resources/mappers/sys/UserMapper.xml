@@ -7,7 +7,7 @@
         <result column="user_name" property="userName" jdbcType="VARCHAR" />
         <result column="user_nick" property="userNick" jdbcType="VARCHAR" />
         <result column="password" property="password" jdbcType="VARCHAR" />
-        <result column="status" property="status" jdbcType="CHAR" />
+        <result column="status" property="status" jdbcType="INTEGER" />
         <result column="create_time" property="createTime" jdbcType="DATE" />
         <result column="update_time" property="updateTime" jdbcType="DATE" />
         <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
@@ -15,8 +15,39 @@
         <result column="user_enable" property="userEnable" jdbcType="INTEGER" />
     </resultMap>
 
+    <resultMap id="User_Role_permission" type="cn.wyedward.core.entity.sys.dto.UserDto" extends="BaseResultMap" >
+        <collection property="permissionList" ofType="cn.wyedward.core.entity.sys.Permission" column="user_name" select="cn.wyedward.core.mapper.sys.PermissionMapper.findByUserName">
+            <id column="permission_id" property="permissionId" jdbcType="INTEGER" />
+            <result column="permission_unique_id" property="permissionUniqueID" jdbcType="BIGING" />
+            <result column="permission_url" property="permissionUrl" jdbcType="VARCHAR" />
+            <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
+            <result column="permission_description;" property="permissionDescription" jdbcType="VARCHAR"/>
+            <result column="permission_fid" property="permissionFid" jdbcType="Integer"/>
+            <result column="permission_enable" property="permissionEnable" jdbcType="Integer"/>
+        </collection>
+        <collection property="roleList" ofType="cn.wyedward.core.entity.sys.Role" column="user_name" select="cn.wyedward.core.mapper.sys.RoleMapper.findByUserName">
+            <id column="role_id" property="roleId" jdbcType="INTEGER" />
+            <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+            <result column="role_unique_id" property="roleUniqueID" jdbcType="BIGING" />
+            <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+            <result column="role_description" property="roleDescription" jdbcType="VARCHAR" />
+            <result column="role_enable" property="roleEnable" jdbcType="INTEGER" />
+        </collection>
+    </resultMap>
+
     <sql id="Base_Column_List" >
         user_id, user_unique_id, user_name, user_nick, password, status,create_time,update_time,user_email,user_avatar,user_enable
     </sql>
+
+    <sql id="Without_Password" >
+        user_name, create_time, user_avatar, user_nick, update_time, user_email
+    </sql>
+
+    <select id="getUserRolePermission" resultMap="User_Role_permission" parameterType="java.lang.String">
+        select
+        <include refid="Without_Password" />
+        from sr_user
+        where user_name = #{userName} AND user_enable = 0
+    </select>
 
 </mapper>

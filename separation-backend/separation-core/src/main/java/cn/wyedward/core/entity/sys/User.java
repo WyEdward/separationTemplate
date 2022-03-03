@@ -20,7 +20,7 @@ public class User implements Serializable{
     private String userName; //用户登录名
     private String userNick; //用户昵称
     private String password; //用户密码
-    private char status; //用户状态
+    private int status; //用户状态
     private Date createTime; //用户创建时间
     private Date UpdateTime; //用户更新时间
     private String userEmail; //用户邮箱

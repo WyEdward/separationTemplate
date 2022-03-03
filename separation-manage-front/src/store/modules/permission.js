@@ -43,7 +43,8 @@ const actions = {
             userName: sessionStorage.getItem('userName')
         };
         //console.log("后台权限路由数组:+---------");
-        let u = await user.getUser(params);
+        let uContent = await user.getUser(params);
+        let u = uContent.data;
         let pList = u.permissionList.map((item)=>{
             return item.permissionUrl;
         });
