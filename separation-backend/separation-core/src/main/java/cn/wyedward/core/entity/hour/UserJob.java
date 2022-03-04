@@ -18,4 +18,5 @@ public class UserJob implements Serializable {
     private int userJobEnable;
     private int isAudit;
     private int auditId;
+    private Date updateTime;
 }

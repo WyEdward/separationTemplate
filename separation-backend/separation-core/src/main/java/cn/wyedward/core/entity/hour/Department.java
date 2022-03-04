@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 部门表
@@ -18,4 +19,6 @@ public class Department implements Serializable {
     private String departmentDescription;
     private int departmentFid;
     private int departmentEnable;
+    private Date creatTime;
+    private Date updateTime;
 }
