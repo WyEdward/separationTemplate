@@ -2,7 +2,6 @@ package cn.wyedward.auth.shiro;
 
 import cn.wyedward.auth.jwt.JwtToken;
 import cn.wyedward.auth.utils.JwtUtil;
-import cn.wyedward.core.entity.UserInfo;
 import cn.wyedward.core.entity.sys.Permission;
 import cn.wyedward.core.entity.sys.Role;
 import cn.wyedward.core.entity.sys.User;
