@@ -12,9 +12,9 @@ public class Role implements Serializable {
     private static final long serialVersionUID = -5068356549484959834L;
 
     @TableId(type = IdType.AUTO)
-    private int roleId; //角色自增id
+    private Integer roleId; //角色自增id
     private long uniqueId;  //角色唯一id
     private String roleName; //角色名字
     private String roleDescription; //角色描述
-    private int roleEnable; //角色是否删除
+    private Integer roleEnable; //角色是否删除
 }

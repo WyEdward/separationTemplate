@@ -3,10 +3,15 @@ import testDelete from "../views/test/testDelete";
 import testInsert from "../views/test/testInsert";
 import testUpdate from "../views/test/testUpdate";
 import testManage from "../views/test"
+
+import hourManage from '../views/hourManage'
+import JobManage from '../views/hourManage/jobManage'
+import JobCreate from '../views/hourManage/jobManage/job_create'
+import JobList from '../views/hourManage/jobManage/job_list'
 /* 需要权限判断的路由 */
 const dynamicRoutes = [
   {
-    id: 1,
+    id: 2,
     path: '/test',
     component: testManage,
     name: '测试管理',
@@ -51,6 +56,49 @@ const dynamicRoutes = [
           name: '测试更新',
           icon: 'tree'
         },
+      },
+    ]
+  },
+  {
+    id: 3,
+    path: '/hour',
+    component: hourManage,
+    name: '工时系统',
+    redirect: '/hour/job',
+    meta: {
+      name: '工时管理',
+      icon: 'tree'
+    },
+    children: [
+      {
+        path: '/hour/job',
+        component: JobManage,
+        redirect: '/hour/job/list',
+        name: '项目管理',
+        meta: {
+          name: '项目管理',
+          icon: 'tree'
+        },
+        children:[
+          {
+            path: '/hour/job/list',
+            component: JobList,
+            name: '项目列表',
+            meta: {
+              name: '项目列表',
+              icon: 'tree'
+            }
+          },
+          {
+            path: '/hour/job/create',
+            component: JobCreate,
+            name: '项目创建',
+            meta: {
+              name: '项目创建',
+              icon: 'tree'
+            }
+          }
+        ]
       },
     ]
   }

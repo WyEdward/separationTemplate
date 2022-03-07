@@ -18,6 +18,18 @@ Vue.use(ElementUI);             //使用ElementUI
 Vue.use(api);                //使用axios
 
 
+Vue.filter('dateformat', function(dataStr) {
+  let a = new Date(dataStr).getTime();
+  const date = new Date(a);
+  const Y = date.getFullYear() + '-';
+  const M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+  const D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '  ';
+  const h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+  const m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+  const s = date.getSeconds(); // 秒
+  const dateString = Y + M + D + h + m + s;
+  return dateString;
+});
 
 router.beforeEach((to, from, next) => {
   if (!store.state.currentUser.token) {

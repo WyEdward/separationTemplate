@@ -7,16 +7,16 @@ import java.util.Date;
 @Data
 public class UserJob implements Serializable {
     private static final long serialVersionUID = 2204365624193969686L;
-    private int userJobId;
+    private Integer userJobId;
     private long userJobUniqueId;
-    private int uId;
-    private int jId;
+    private Integer uId;
+    private Integer jId;
     private Date firstTime;
     private Date lastTime;
     private Date totalTIme;
     private Date pushTime;
-    private int userJobEnable;
-    private int isAudit;
-    private int auditId;
+    private Integer userJobEnable;
+    private Integer isAudit;
+    private Integer auditId;
     private Date updateTime;
 }

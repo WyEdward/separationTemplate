@@ -1,4 +1,4 @@
-import user from '@/api/user'
+import user from '@/api/sys/user'
 import router, { DynamicRoutes } from '@/router/index'
 import { recursionRouter } from '@/common/utils/recursion-router' //调用处理路由的方法
 import dynamicRouter from '@/router/dynamic-router'

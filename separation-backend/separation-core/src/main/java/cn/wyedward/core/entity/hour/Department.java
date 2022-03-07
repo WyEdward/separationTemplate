@@ -13,12 +13,12 @@ import java.util.Date;
 public class Department implements Serializable {
     private static final long serialVersionUID = -3527055115002518368L;
     @TableId(type = IdType.AUTO)
-    private int departmentId;
+    private Integer departmentId;
     private long departmentUniqueId;
     private String departmentName;
     private String departmentDescription;
-    private int departmentFid;
-    private int departmentEnable;
+    private Integer departmentFid;
+    private Integer departmentEnable;
     private Date creatTime;
     private Date updateTime;
 }

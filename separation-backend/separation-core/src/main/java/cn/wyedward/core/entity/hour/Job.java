@@ -11,12 +11,12 @@ import java.util.Date;
 public class Job implements Serializable {
     private static final long serialVersionUID = 2398797359346226253L;
     @TableId(type = IdType.AUTO)
-    private int jobId; //jobId
+    private Integer jobId; //jobId
     private long jobUniqueId;
     private String jobName;
     private String jobDescription;
-    private int jobFid;
-    private int jobEnable;
-    private Date creatTime;
+    private Integer jobFid;
+    private Integer jobEnable;
+    private Date createTime;
     private Date updateTime;
 }
