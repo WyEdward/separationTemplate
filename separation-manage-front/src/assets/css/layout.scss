@@ -1,18 +1,33 @@
 .layout{
     aside{
       position: fixed;
-      width: 200px;
+      width: 210px;
       height: 100%;
-      top: 60px;
+      top: 0;
       left: 0;
+      overflow-y: auto;
       background-color: #EBF1F6;
+      &::-webkit-scrollbar{
+        width:6px;
+      }
+      //滚动条小方块
+      &::-webkit-scrollbar-thumb{
+        border-radius:10px;
+        background:#DDDEE0;
+      }
+      //滚动条轨道
+      &::-webkit-scrollbar-track{
+        border-radius:10px;
+        height:100px;
+        background: white;
+      }
       .menuBgColor{
         background-color: #EBF1F6;
       }
     }
     .main{
       min-height: 100%;
-      margin-left: 200px;  /*左移200  避免跟侧边栏冲突*/
+      margin-left: 210px;  /*左移200  避免跟侧边栏冲突*/
       header{
         position: fixed;
         left: 0;
@@ -73,11 +88,10 @@
       section{
         position: relative;
         margin-top: 60px;
-        width: 100%;
-        background-color: white;
         padding: 8px;
+        background-color: white;
         .tabs{
-
+          width: 100%;
         }
       }
     }

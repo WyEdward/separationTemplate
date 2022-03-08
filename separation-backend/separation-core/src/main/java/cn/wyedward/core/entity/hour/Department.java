@@ -19,6 +19,6 @@ public class Department implements Serializable {
     private String departmentDescription;
     private Integer departmentFid;
     private Integer departmentEnable;
-    private Date creatTime;
+    private Date createTime;
     private Date updateTime;
 }

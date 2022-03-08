@@ -8,6 +8,10 @@ import hourManage from '../views/hourManage'
 import JobManage from '../views/hourManage/jobManage'
 import JobCreate from '../views/hourManage/jobManage/job_create'
 import JobList from '../views/hourManage/jobManage/job_list'
+
+import DepartmentManage from '../views/hourManage/departmentManage'
+import DepartmentCreate from '../views/hourManage/departmentManage/department_create'
+import DepartmentList from '../views/hourManage/departmentManage/department_list'
 /* 需要权限判断的路由 */
 const dynamicRoutes = [
   {
@@ -95,6 +99,36 @@ const dynamicRoutes = [
             name: '项目创建',
             meta: {
               name: '项目创建',
+              icon: 'tree'
+            }
+          }
+        ]
+      },
+      {
+        path: '/hour/department',
+        component: DepartmentManage,
+        redirect: '/hour/department/list',
+        name: '部门管理',
+        meta: {
+          name: '部门管理',
+          icon: 'tree'
+        },
+        children:[
+          {
+            path: '/hour/department/list',
+            component: DepartmentList,
+            name: '部门列表',
+            meta: {
+              name: '部门列表',
+              icon: 'tree'
+            }
+          },
+          {
+            path: '/hour/department/create',
+            component: DepartmentCreate,
+            name: '部门创建',
+            meta: {
+              name: '部门创建',
               icon: 'tree'
             }
           }

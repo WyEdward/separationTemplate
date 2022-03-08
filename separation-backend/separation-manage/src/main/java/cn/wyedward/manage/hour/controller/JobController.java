@@ -3,20 +3,14 @@ package cn.wyedward.manage.hour.controller;
 import cn.wyedward.core.common.ResponseBo;
 import cn.wyedward.core.entity.hour.Job;
 import cn.wyedward.core.entity.hour.vo.JobVo;
-import cn.wyedward.core.utils.DateUtils;
 import cn.wyedward.manage.hour.service.JobService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sun.javaws.IconUtil;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -52,7 +46,6 @@ public class JobController {
         bo.put("pages", page.getPages());
         bo.put("current", page.getCurrent());
         bo.put("size", page.getSize());
-        System.out.println(bo);
         return bo;
     }
 
