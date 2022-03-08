@@ -9,7 +9,7 @@ import java.util.Date;
 public class Audit implements Serializable {
     private static final long serialVersionUID = 2848067662713382927L;
     private Integer auditId;
-    private long auditUniqueId;
+    private Long auditUniqueId;
     private Integer userJobId;
     private Date auditTime;
     private Integer auditPersonId;

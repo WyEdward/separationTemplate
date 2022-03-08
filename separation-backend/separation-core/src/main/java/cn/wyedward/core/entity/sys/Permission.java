@@ -12,10 +12,9 @@ import java.io.Serializable;
 @Data
 public class Permission implements Serializable {
     private static final long serialVersionUID = 8467545221300902305L;
-
     @TableId(type = IdType.AUTO)
     private Integer permissionId; //权限自增id
-    private long permissionUnique; //权限唯一id
+    private Long permissionUniqueId; //权限唯一id
     private String permissionUrl; //前端router_url
     private String permissionName; //后端shiro权限命名
     private String permissionDescription; //描述int

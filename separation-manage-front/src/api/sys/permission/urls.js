@@ -1,6 +1,6 @@
 import globalVariable from '@/common/global_variable.js';
 //表示这个类别的api
-const baseUrl = globalVariable.baseUrl + '/job/'
+const baseUrl = globalVariable.baseUrl + '/permission/'
 
 export default {
   //更新或插入项目
@@ -8,5 +8,6 @@ export default {
   listByPage: baseUrl + 'listByPage',
   remove: baseUrl + 'remove',
   removes: baseUrl + 'removes',
-  queryGroupByLike: baseUrl + 'queryGroupByLike'
+  queryGroupByLike: baseUrl + 'queryGroupByLike',
+  lists: baseUrl + 'lists'
 }

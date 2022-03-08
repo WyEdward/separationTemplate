@@ -8,7 +8,6 @@
           :fetch-suggestions="querySearchGroup"
           placeholder="请输入部门名称"
           @focus="handlerInputChange"
-          ref="searchContent"
         >
           <i
             class="el-icon-edit el-input__icon"
@@ -121,13 +120,8 @@ export default {
   },
   created(){
     this.getDataList();
-    this.getGroupList();
   },
   methods:{
-    //得到建议总的list
-    getGroupList(){
-      this.queryGroupByLike('');
-    },
     //根据查询词去得到下拉菜单  cb(groupArr) 表示下拉菜单应用这个数组
     querySearchGroup(queryString, cb) {
       this.queryGroupByLike(queryString);
@@ -266,7 +260,7 @@ export default {
     'departmentNameSearch': {
       deep: true,
       handler: function(newVal, oldVal) {
-        this.queryGroupByLike(this.departmentNameSearch);
+        this.handlerInputChange()
       }
     }
   }

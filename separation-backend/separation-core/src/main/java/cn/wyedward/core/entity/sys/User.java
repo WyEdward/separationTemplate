@@ -16,7 +16,7 @@ public class User implements Serializable{
 
     @TableId(type = IdType.AUTO)
     private Integer userId; //用户自增id
-    private long userUniqueId; //用户唯一id
+    private Long userUniqueId; //用户唯一id
     private String userName; //用户登录名
     private String userNick; //用户昵称
     private String password; //用户密码

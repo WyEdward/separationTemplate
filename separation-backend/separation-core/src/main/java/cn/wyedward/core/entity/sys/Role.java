@@ -13,7 +13,7 @@ public class Role implements Serializable {
 
     @TableId(type = IdType.AUTO)
     private Integer roleId; //角色自增id
-    private long uniqueId;  //角色唯一id
+    private Long uniqueId;  //角色唯一id
     private String roleName; //角色名字
     private String roleDescription; //角色描述
     private Integer roleEnable; //角色是否删除

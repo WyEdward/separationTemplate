@@ -12,7 +12,7 @@ public class Job implements Serializable {
     private static final long serialVersionUID = 2398797359346226253L;
     @TableId(type = IdType.AUTO)
     private Integer jobId; //jobId
-    private long jobUniqueId;
+    private Long jobUniqueId;
     private String jobName;
     private String jobDescription;
     private Integer jobFid;

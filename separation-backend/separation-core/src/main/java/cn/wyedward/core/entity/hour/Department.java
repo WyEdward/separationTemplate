@@ -14,7 +14,7 @@ public class Department implements Serializable {
     private static final long serialVersionUID = -3527055115002518368L;
     @TableId(type = IdType.AUTO)
     private Integer departmentId;
-    private long departmentUniqueId;
+    private Long departmentUniqueId;
     private String departmentName;
     private String departmentDescription;
     private Integer departmentFid;

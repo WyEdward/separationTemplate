@@ -1,11 +1,10 @@
-package cn.wyedward.manage.hour.controller;
+package cn.wyedward.auth.controller;
 
+import cn.wyedward.auth.service.PermissionService;
 import cn.wyedward.core.common.ResponseBo;
-import cn.wyedward.core.entity.hour.Department;
-import cn.wyedward.core.entity.hour.Job;
-import cn.wyedward.core.entity.hour.vo.JobVo;
+import cn.wyedward.core.entity.sys.Permission;
+import cn.wyedward.core.entity.sys.vo.PermissionVo;
 import cn.wyedward.core.utils.SnowflakeIdUtils;
-import cn.wyedward.manage.hour.service.JobService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -13,17 +12,16 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import java.util.Date;
+
 import java.util.List;
 
 
-@RestController("jobController")
 @CrossOrigin
-@RequestMapping("/admin/job")
-public class JobController {
-
+@RestController
+@RequestMapping("/admin/permission")
+public class PermissionController {
     @Autowired
-    private JobService jobService;
+    private PermissionService permissionService;
 
     /**
      * 分页查询
@@ -32,15 +30,15 @@ public class JobController {
     @ApiOperation(value = "分页查询项目")
     @PostMapping("/listByPage")
     @Transactional
-    public ResponseBo listByPage(@RequestBody JobVo jobVo){
+    public ResponseBo listByPage(@RequestBody PermissionVo permissionVo){
         //定义查询器
-        LambdaQueryWrapper<Job> queryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<Permission> queryWrapper = new LambdaQueryWrapper<>();
         //查询条件
-        if(!"".equals(jobVo.getDataForm().getJobName())){
-            queryWrapper.like(Job::getJobName, jobVo.getDataForm().getJobName());
+        if(!"".equals(permissionVo.getDataForm().getPermissionName())){
+            queryWrapper.like(Permission::getPermissionName, permissionVo.getDataForm().getPermissionName());
         }
         //当前页的页号, 和 每页显示的页数  查询条件
-        IPage<Job> page = jobService.page(new Page<>(jobVo.getCurrPage(), jobVo.getPageSize()), queryWrapper);
+        IPage<Permission> page = permissionService.page(new Page<>(permissionVo.getCurrPage(), permissionVo.getPageSize()), queryWrapper);
         //定义返回对象
         ResponseBo bo = new ResponseBo();
         bo.put("record", page.getRecords());
@@ -54,22 +52,20 @@ public class JobController {
     @ApiOperation(value = "创建更新项目")
     @PostMapping("/insertOrUpdate")
     @Transactional
-    public ResponseBo insertOrUpdate(@RequestBody Job job){
-        if(job.getJobId() == null || "0".equals(String.valueOf(job.getJobId())) || "null".equals(String.valueOf(job.getJobId()))){
+    public ResponseBo insertOrUpdate(@RequestBody Permission permission){
+        if(permission.getPermissionId() == null || "0".equals(String.valueOf(permission.getPermissionId())) || "null".equals(String.valueOf(permission.getPermissionId()))){
+            //permission.setCreateTime(DateUtils.parse(new Date(), "yyyy-MM-dd HH:mm:ss"));
             SnowflakeIdUtils idWorker = new SnowflakeIdUtils(1, 1); //雪花生成全局唯一id
-            job.setJobUniqueId(idWorker.nextId());
-            //job.setCreateTime(DateUtils.parse(new Date(), "yyyy-MM-dd HH:mm:ss"));
-            job.setCreateTime(new Date());
-            boolean result = jobService.save(job);
+            permission.setPermissionUniqueId(idWorker.nextId());
+            boolean result = permissionService.save(permission);
             if(result){
                 return ResponseBo.ok("创建成功");
             }else{
                 return ResponseBo.error("创建失败");
             }
         }else{
-            //job.setUpdateTime(DateUtils.parse(new Date(), "yyyy-MM-dd HH:mm:ss"));
-            job.setUpdateTime(new Date());
-            boolean result = jobService.updateById(job);
+            //permission.setUpdateTime(DateUtils.parse(new Date(), "yyyy-MM-dd HH:mm:ss"));
+            boolean result = permissionService.updateById(permission);
             if(result){
                 return ResponseBo.ok("更新成功");
             }else{
@@ -79,8 +75,8 @@ public class JobController {
     }
 
     @PostMapping("/remove")
-    public ResponseBo remove(@RequestParam("jobId") Integer jobId){
-        boolean res = jobService.removeById(jobId);
+    public ResponseBo remove(@RequestParam("permissionId") Integer permissionId){
+        boolean res = permissionService.removeById(permissionId);
         if(res){
             return new ResponseBo();
         }else{
@@ -90,8 +86,8 @@ public class JobController {
 
     @PostMapping("/removes")
     @Transactional
-    public ResponseBo removes(@RequestBody List<Integer> jobIds){
-        boolean res = jobService.removeByIds(jobIds);
+    public ResponseBo removes(@RequestBody List<Integer> permissionIds){
+        boolean res = permissionService.removeByIds(permissionIds);
         if(res){
             return new ResponseBo();
         }else{
@@ -102,11 +98,20 @@ public class JobController {
     @PostMapping("/queryGroupByLike")
     @Transactional
     public ResponseBo queryGroupByLike(@RequestParam("queryString") String queryString){
-        LambdaQueryWrapper<Job> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.like(Job::getJobName, queryString);
-        IPage<Job> page =  jobService.page(new Page<>( 1, 10), queryWrapper);
+        LambdaQueryWrapper<Permission> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(Permission::getPermissionName, queryString);
+        IPage<Permission> page =  permissionService.page(new Page<>( 1, 10), queryWrapper);
         ResponseBo bo = new ResponseBo();
         bo.put("record", page.getRecords());
         return bo;
+    }
+
+    @PostMapping("/lists")
+    @Transactional
+    public ResponseBo lists(){
+        List<Permission> lists = permissionService.list();
+        ResponseBo responseBo = new ResponseBo();
+        responseBo.put("lists", lists);
+        return responseBo;
     }
 }

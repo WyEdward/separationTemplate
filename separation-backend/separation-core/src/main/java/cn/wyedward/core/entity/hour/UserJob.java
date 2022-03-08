@@ -8,7 +8,7 @@ import java.util.Date;
 public class UserJob implements Serializable {
     private static final long serialVersionUID = 2204365624193969686L;
     private Integer userJobId;
-    private long userJobUniqueId;
+    private Long userJobUniqueId;
     private Integer uId;
     private Integer jId;
     private Date firstTime;

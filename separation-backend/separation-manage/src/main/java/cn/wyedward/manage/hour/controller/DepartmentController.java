@@ -3,6 +3,7 @@ package cn.wyedward.manage.hour.controller;
 import cn.wyedward.core.common.ResponseBo;
 import cn.wyedward.core.entity.hour.Department;
 import cn.wyedward.core.entity.hour.vo.DepartmentVo;
+import cn.wyedward.core.utils.SnowflakeIdUtils;
 import cn.wyedward.manage.hour.service.DepartmentService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -53,6 +54,8 @@ public class DepartmentController {
     @Transactional
     public ResponseBo insertOrUpdate(@RequestBody Department department){
         if(department.getDepartmentId() == null || "0".equals(String.valueOf(department.getDepartmentId())) || "null".equals(String.valueOf(department.getDepartmentId()))){
+            SnowflakeIdUtils idWorker = new SnowflakeIdUtils(1, 1); //雪花生成全局唯一id
+            department.setDepartmentUniqueId(idWorker.nextId());
             //department.setCreateTime(DateUtils.parse(new Date(), "yyyy-MM-dd HH:mm:ss"));
             department.setCreateTime(new Date());
             //System.out.println("创建啦");

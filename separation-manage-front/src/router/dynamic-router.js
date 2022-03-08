@@ -12,6 +12,19 @@ import JobList from '../views/hourManage/jobManage/job_list'
 import DepartmentManage from '../views/hourManage/departmentManage'
 import DepartmentCreate from '../views/hourManage/departmentManage/department_create'
 import DepartmentList from '../views/hourManage/departmentManage/department_list'
+
+import SysManage from '../views/sysManage'
+import UserManage from '../views/sysManage/userManage'
+import UserList from '../views/sysManage/userManage/user_list'
+import UserCreate from '../views/sysManage/userManage/user_create'
+
+import PermissionManage from '../views/sysManage/permissionManage'
+import PermissionList from '../views/sysManage/permissionManage/permission_list'
+import PermissionCreate from '../views/sysManage/permissionManage/permission_create'
+
+import RoleManage from '../views/sysManage/roleManage'
+import RoleList from '../views/sysManage/roleManage/role_list'
+import RoleCreate from '../views/sysManage/roleManage/role_create'
 /* 需要权限判断的路由 */
 const dynamicRoutes = [
   {
@@ -134,6 +147,115 @@ const dynamicRoutes = [
           }
         ]
       },
+    ]
+  },
+  {
+    id: 4,
+    path: '/sys',
+    component: SysManage,
+    redirect: '/sys/user',
+    name: '系统管理',
+    meta: {
+      name: '系统管理',
+      icon: 'tree'
+    },
+    children: [
+      {
+        path: '/sys/user',
+        component: UserManage,
+        redirect: '/sys/user/list',
+        name: '用户管理',
+        meta: {
+          name: '用户管理',
+          icon: 'tree'
+        },
+        children: [
+          {
+            path: '/sys/user/list',
+            component: UserList,
+            name: '用户列表',
+            meta: {
+              name: '用户列表',
+              icon: 'tree'
+            },
+            children:[]
+          },
+          {
+            path: '/sys/user/create',
+            component: UserCreate,
+            name: '用户创建',
+            meta: {
+              name: '用户创建',
+              icon: 'tree'
+            },
+            children:[]
+          }
+        ]
+      },
+      {
+        path: '/sys/role',
+        component: RoleManage,
+        redirect: '/sys/role/list',
+        name: '角色管理',
+        meta: {
+          name: '角色管理',
+          icon: 'tree'
+        },
+        children: [
+          {
+            path: '/sys/role/list',
+            component: RoleList,
+            name: '角色列表',
+            meta: {
+              name: '角色列表',
+              icon: 'tree'
+            },
+            children:[]
+          },
+          {
+            path: '/sys/role/create',
+            component: RoleCreate,
+            name: '角色创建',
+            meta: {
+              name: '角色创建',
+              icon: 'tree'
+            },
+            children:[]
+          }
+        ]
+      },
+      {
+        path: '/sys/permission',
+        component: PermissionManage,
+        redirect: '/sys/permission/list',
+        name: '权限管理',
+        meta: {
+          name: '权限管理',
+          icon: 'tree'
+        },
+        children: [
+          {
+            path: '/sys/permission/list',
+            component: PermissionList,
+            name: '权限列表',
+            meta: {
+              name: '权限列表',
+              icon: 'tree'
+            },
+            children:[]
+          },
+          {
+            path: '/sys/permission/create',
+            component: PermissionCreate,
+            name: '权限创建',
+            meta: {
+              name: '权限创建',
+              icon: 'tree'
+            },
+            children:[]
+          }
+        ]
+      }
     ]
   }
 ]

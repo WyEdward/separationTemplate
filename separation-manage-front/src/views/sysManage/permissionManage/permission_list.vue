@@ -1,20 +1,20 @@
 <template>
   <div class="mod-config">
     <el-form :inline="true">
-        <el-form-item>
-          <el-autocomplete
-            value-key="jobName"
-            v-model="jobNameSearch"
-            :fetch-suggestions="querySearchGroup"
-            placeholder="请输入项目名称"
-            @focus="handlerInputChange"
+      <el-form-item>
+        <el-autocomplete
+          value-key="permissionName"
+          v-model="permissionNameSearch"
+          :fetch-suggestions="querySearchGroup"
+          placeholder="请输入权限后端名称"
+          @focus="handlerInputChange"
+        >
+          <i
+            class="el-icon-edit el-input__icon"
+            slot="suffix"
           >
-            <i
-              class="el-icon-edit el-input__icon"
-              slot="suffix"
-            >
-            </i>
-          </el-autocomplete>
+          </i>
+        </el-autocomplete>
       </el-form-item>
       <el-form-item>
         <el-button  @click="search()">查询</el-button>
@@ -37,41 +37,35 @@
         width="50">
       </el-table-column>
       <el-table-column
-        prop="jobId"
+        prop="permissionId"
         header-align="center"
         align="center"
-        label="项目编号"
+        label="权限编号"
         width="80">
       </el-table-column>
       <el-table-column
-        prop="jobName"
+        prop="permissionUrl"
         header-align="center"
         align="center"
-        label="项目名称">
+        label="权限前端路由">
       </el-table-column>
       <el-table-column
-        prop="jobDescription"
+        prop="permissionName"
         header-align="center"
         align="center"
-        label="项目描述">
+        label="权限后端名称">
       </el-table-column>
       <el-table-column
-        prop="createTime"
+        prop="permissionDescription"
         header-align="center"
         align="center"
-        label="创建时间">
-        <template slot-scope="scope">
-          {{ scope.row.updateTime | dateformat }}
-        </template>
+        label="权限描述">
       </el-table-column>
       <el-table-column
-        prop="updateTime"
+        prop="permissionFid"
         header-align="center"
         align="center"
-        label="更新时间">
-        <template slot-scope="scope">
-          {{ scope.row.updateTime | dateformat }}
-        </template>
+        label="权限父id">
       </el-table-column>
       <el-table-column
         fixed="right"
@@ -82,7 +76,7 @@
         <template slot-scope="scope">
           <!--@click="addOrUpdateHandle(scope.row.id)"-->
           <el-button type="text" size="small" @click="update(scope.row)">修改</el-button>
-          <el-button type="text" size="small" @click="remove(scope.row.jobId)">删除</el-button>
+          <el-button type="text" size="small" @click="remove(scope.row.permissionId)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -100,14 +94,14 @@
 
 <script>
 export default {
-  name: 'job_list',
+  name: 'permission_list',
   data () {
     return {
       groupArr: [],   //根据输入信息模糊的下拉框内容
       groupList: [],  //后台返回的直接查的数据
-      jobNameSearch: '',
+      permissionNameSearch: '',
       dataForm: {
-        jobName:''
+        permissionName:''
       },
       dataList: [],
       pageIndex: 1,
@@ -132,31 +126,31 @@ export default {
       let queryCondition = {
         queryString : queryString
       }
-      let res = await this.$api.job.queryGroupByLike(queryCondition);
+      let res = await this.$api.permission.queryGroupByLike(queryCondition);
       this.groupList = res.data.record;
       if(this.groupList.length >= 1){
         this.groupArr = this.groupList.map((item)=>{
           return {
-            jobName: item.jobName,
+            permissionName: item.permissionName,
           }
         })
       }else{
-        this.groupArr = [{jobName: '关键词下暂无数据'}];   //搜不到就显示为空
+        this.groupArr = [{permissionName: '关键词下暂无数据'}];   //搜不到就显示为空
       }
     },
     handlerInputChange(){
-      this.queryGroupByLike(this.jobNameSearch);
+      this.queryGroupByLike(this.permissionNameSearch);
     },
     async getDataList(){
       let queryCondition = {
-        jobName: ''
+        permissionName: ''
       };
       let params = {
         currPage : this.pageIndex,
         pageSize : this.pageSize,
         dataForm: queryCondition
       };
-      let response = await this.$api.job.listByPage(params);
+      let response = await this.$api.permission.listByPage(params);
       //console.log(response);
       this.totalPage = response.data.total;
       this.dataList = response.data.record;
@@ -165,14 +159,14 @@ export default {
     async search(){
       this.pageIndex = 1;
       let queryCondition = {
-        jobName: this.jobNameSearch
+        permissionName: this.permissionNameSearch
       };
       let params = {
         currPage : this.pageIndex,
         pageSize : this.pageSize,
         dataForm: queryCondition
       };
-      let response = await this.$api.job.listByPage(params);
+      let response = await this.$api.permission.listByPage(params);
       //console.log(response);
       this.totalPage = response.data.total;
       this.dataList = response.data.record;
@@ -193,16 +187,16 @@ export default {
       this.dataListSelections = val
     },
     //删除操作
-    remove(jobId){
+    remove(permissionId){
       let params = {
-        jobId: jobId
+        permissionId: permissionId
       };
       this.$confirm('将删除该内容, 是否确定?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        return this.$api.job.remove(params);
+        return this.$api.permission.remove(params);
       }).then((result) => {
         //console.log(result);
         if (result.data.code === 200) {
@@ -218,7 +212,7 @@ export default {
     //多选删除
     removes() {
       let ids = this.dataListSelections.map(item => {
-        return item.jobId
+        return item.permissionId
       });
       //删除数组
       let params = ids;
@@ -228,7 +222,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(()=>{
-        return this.$api.job.removes(params);
+        return this.$api.permission.removes(params);
       }).then((result)=>{
         if(result.data.code === 200){
           this.$message.success("删除成功");
@@ -242,22 +236,24 @@ export default {
     },
     //创建标签
     create(){
-      this.$router.push('/hour/job/create');
+      this.$router.push('/sys/permission/create');
     },
     //修改博客
     update(row){
       this.$router.push({
-        path: '/hour/job/create',
+        path: '/sys/permission/create',
         query: {
-          jobId: row.jobId,
-          jobName: row.jobName,
-          jobDescription: row.jobDescription
+          permissionId: row.permissionId,
+          permissionUrl: row.permissionUrl,
+          permissionName: row.permissionName,
+          permissionDescription: row.permissionDescription,
+          permissionFid: row.permissionFid
         }
       })
     }
   },
   watch:{
-    'jobNameSearch': {
+    'permissionNameSearch': {
       deep: true,
       handler: function(newVal, oldVal) {
         this.handlerInputChange();
