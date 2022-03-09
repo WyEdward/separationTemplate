@@ -26,6 +26,9 @@ export default {
   listByPage(params){
     return api.post(urls.listByPage, params, beforeSend(header))
   },
+  listDtoByPage(params){
+    return api.post(urls.listDtoByPage, params, beforeSend(header))
+  },
   remove(params){
     return api.post(urls.remove, Qs.stringify(params), beforeSend(headerParam))
   },

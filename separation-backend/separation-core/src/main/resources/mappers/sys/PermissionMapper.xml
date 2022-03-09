@@ -11,6 +11,10 @@
         <result column="permission_enable" property="permissionEnable" jdbcType="INTEGER" />
     </resultMap>
 
+    <resultMap id="DtoResultMap" type="cn.wyedward.core.entity.sys.dto.PermissionDto" extends="BaseResultMap">
+        <association property="permissionFu" column="permission_fid"
+                     select="cn.wyedward.core.mapper.sys.PermissionMapper.selectById"/>
+    </resultMap>
     <sql id="Base_Column_List" >
         permission_id, permission_unique_id, permission_url, permission_name, permission_description, permission_fid, permission_enable
     </sql>
@@ -28,5 +32,30 @@
                 LEFT JOIN sr_user_role ur ON (ur.`rid` = r.`role_id`)
                 LEFT JOIN sr_user u ON (u.`user_id` = ur.`uid`)
         WHERE u.user_name = #{userName,jdbcType=VARCHAR} and u.user_enable = 0
+    </select>
+    <!--查询dto-->
+    <select id="findDtoByPage" resultMap="DtoResultMap">
+        select
+            <include refid="Base_Column_List"></include>
+        from
+            sr_permission
+        <where>
+            <if test="wrapper.queryCondition != null and wrapper.queryCondition.permissionName !=null  ">
+                and permission_name like concat("%", #{wrapper.queryCondition.permissionName}, "%")
+            </if>
+        </where>
+        limit #{start}, #{end}
+    </select>
+    <!--查询dto条数-->
+    <select id="countDto" resultType="java.lang.Integer">
+        select
+            count(permission_id)
+        from
+            sr_permission
+        <where>
+            <if test="wrapper.queryCondition != null and wrapper.queryCondition.permissionName !=null  ">
+                and permission_name like concat("%", #{wrapper.queryCondition.permissionName}, "%")
+            </if>
+        </where>
     </select>
 </mapper>

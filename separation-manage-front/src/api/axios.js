@@ -1,5 +1,5 @@
 import axios from 'axios'
-import browser from '../common/browser'
+import browser from '../common/utils/browser'
 
 // 创建 axios 实例
 let http = axios.create({

@@ -14,5 +14,4 @@ public class UserDto extends User implements Serializable{
     private static final long serialVersionUID = -7634202375255867796L;
     private List<Permission> permissionList;  //用户权限集
     private List<Role> roleList; //用户角色集
-
 }

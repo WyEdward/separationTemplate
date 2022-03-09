@@ -62,10 +62,10 @@
         label="权限描述">
       </el-table-column>
       <el-table-column
-        prop="permissionFid"
+        prop="permissionFu.permissionDescription"
         header-align="center"
         align="center"
-        label="权限父id">
+        label="父权限描述">
       </el-table-column>
       <el-table-column
         fixed="right"
@@ -150,7 +150,7 @@ export default {
         pageSize : this.pageSize,
         dataForm: queryCondition
       };
-      let response = await this.$api.permission.listByPage(params);
+      let response = await this.$api.permission.listDtoByPage(params);
       //console.log(response);
       this.totalPage = response.data.total;
       this.dataList = response.data.record;

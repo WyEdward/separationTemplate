@@ -18,21 +18,21 @@
 
     <resultMap id="User_Role_permission" type="cn.wyedward.core.entity.sys.dto.UserDto" extends="BaseResultMap" >
         <collection property="permissionList" ofType="cn.wyedward.core.entity.sys.Permission" column="user_name" select="cn.wyedward.core.mapper.sys.PermissionMapper.findByUserName">
-            <id column="permission_id" property="permissionId" jdbcType="INTEGER" />
+            <!--<id column="permission_id" property="permissionId" jdbcType="INTEGER" />
             <result column="permission_unique_id" property="permissionUniqueID" jdbcType="BIGING" />
             <result column="permission_url" property="permissionUrl" jdbcType="VARCHAR" />
             <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
             <result column="permission_description;" property="permissionDescription" jdbcType="VARCHAR"/>
             <result column="permission_fid" property="permissionFid" jdbcType="Integer"/>
-            <result column="permission_enable" property="permissionEnable" jdbcType="Integer"/>
+            <result column="permission_enable" property="permissionEnable" jdbcType="Integer"/>-->
         </collection>
         <collection property="roleList" ofType="cn.wyedward.core.entity.sys.Role" column="user_name" select="cn.wyedward.core.mapper.sys.RoleMapper.findByUserName">
-            <id column="role_id" property="roleId" jdbcType="INTEGER" />
+           <!-- <id column="role_id" property="roleId" jdbcType="INTEGER" />
             <result column="role_name" property="roleName" jdbcType="VARCHAR" />
             <result column="role_unique_id" property="roleUniqueID" jdbcType="BIGING" />
             <result column="role_name" property="roleName" jdbcType="VARCHAR" />
             <result column="role_description" property="roleDescription" jdbcType="VARCHAR" />
-            <result column="role_enable" property="roleEnable" jdbcType="INTEGER" />
+            <result column="role_enable" property="roleEnable" jdbcType="INTEGER" />-->
         </collection>
     </resultMap>
 

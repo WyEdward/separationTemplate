@@ -2,7 +2,10 @@ package cn.wyedward.auth.controller;
 
 import cn.wyedward.auth.service.PermissionService;
 import cn.wyedward.core.common.ResponseBo;
+import cn.wyedward.core.entity.common.PageBean;
+import cn.wyedward.core.entity.common.PageQueryWrapper;
 import cn.wyedward.core.entity.sys.Permission;
+import cn.wyedward.core.entity.sys.dto.PermissionDto;
 import cn.wyedward.core.entity.sys.vo.PermissionVo;
 import cn.wyedward.core.utils.SnowflakeIdUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -27,7 +30,7 @@ public class PermissionController {
      * 分页查询
      * @return
      */
-    @ApiOperation(value = "分页查询项目")
+    @ApiOperation(value = "分页查询权限")
     @PostMapping("/listByPage")
     @Transactional
     public ResponseBo listByPage(@RequestBody PermissionVo permissionVo){
@@ -46,6 +49,54 @@ public class PermissionController {
         bo.put("pages", page.getPages());
         bo.put("current", page.getCurrent());
         bo.put("size", page.getSize());
+        return bo;
+    }
+
+    /**
+     * 查询搜索下拉框
+     * @param queryString
+     * @return
+     */
+    @PostMapping("/queryGroupByLike")
+    @Transactional
+    public ResponseBo queryGroupByLike(@RequestParam("queryString") String queryString){
+        LambdaQueryWrapper<Permission> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(Permission::getPermissionName, queryString);
+        IPage<Permission> page =  permissionService.page(new Page<>( 1, 10), queryWrapper);
+        ResponseBo bo = new ResponseBo();
+        bo.put("record", page.getRecords());
+        return bo;
+    }
+
+    @PostMapping("/lists")
+    @Transactional
+    public ResponseBo lists(){
+        List<Permission> lists = permissionService.list();
+        ResponseBo responseBo = new ResponseBo();
+        responseBo.put("lists", lists);
+        return responseBo;
+    }
+
+    /**
+     * 查询dto的数据 分页
+     * @param permissionVo
+     * @return
+     */
+    @PostMapping("/listDtoByPage")
+    public ResponseBo listDtoByPage(@RequestBody PermissionVo permissionVo){
+        //定义自定义查询器
+        PageQueryWrapper<PermissionDto> wrapper = new PageQueryWrapper<PermissionDto>();
+        if(permissionVo.getDataForm().getPermissionName() != null){  //如果参数有传权限名称 则
+            wrapper.put("permissionName", permissionVo.getDataForm().getPermissionName());
+        }
+        //设置自定义分页器  传当前页 和 一页展示多少数
+        PageBean<PermissionDto> dtoPageBean = new PageBean<>(permissionVo.getCurrPage(), permissionVo.getPageSize());
+        List<PermissionDto> dtoList = permissionService.listDtoByPage(dtoPageBean, wrapper); //返回查询结果集合
+        Integer total = permissionService.countDto(wrapper);  //返回条数
+        //定义返回对象
+        ResponseBo bo = new ResponseBo();
+        bo.put("record",dtoList);
+        bo.put("total", total);
         return bo;
     }
 
@@ -95,23 +146,4 @@ public class PermissionController {
         }
     }
 
-    @PostMapping("/queryGroupByLike")
-    @Transactional
-    public ResponseBo queryGroupByLike(@RequestParam("queryString") String queryString){
-        LambdaQueryWrapper<Permission> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.like(Permission::getPermissionName, queryString);
-        IPage<Permission> page =  permissionService.page(new Page<>( 1, 10), queryWrapper);
-        ResponseBo bo = new ResponseBo();
-        bo.put("record", page.getRecords());
-        return bo;
-    }
-
-    @PostMapping("/lists")
-    @Transactional
-    public ResponseBo lists(){
-        List<Permission> lists = permissionService.list();
-        ResponseBo responseBo = new ResponseBo();
-        responseBo.put("lists", lists);
-        return responseBo;
-    }
 }

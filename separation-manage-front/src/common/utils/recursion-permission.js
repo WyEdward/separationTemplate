@@ -24,9 +24,9 @@ export function recursionTree(treeList = [], ...args) {
   let args2 = args[2];
   let treeListByFilter =
     treeList.map(item => ({
-      args0: item[args0],  ///...item表达的话会把item默认的属性加上
-      args1: item[args1],
-      args2: item[args2],
+      [args0]: item[args0],  ///...item表达的话会把item默认的属性加上
+      [args1]: item[args1],
+      [args2]: item[args2],
       children: item.children
         ? recursionTree(item.children, ...args)
         : null

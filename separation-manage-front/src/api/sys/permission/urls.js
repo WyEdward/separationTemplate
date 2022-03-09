@@ -6,6 +6,7 @@ export default {
   //更新或插入项目
   insertOrUpdate: baseUrl + 'insertOrUpdate',
   listByPage: baseUrl + 'listByPage',
+  listDtoByPage: baseUrl + 'listDtoByPage',
   remove: baseUrl + 'remove',
   removes: baseUrl + 'removes',
   queryGroupByLike: baseUrl + 'queryGroupByLike',
