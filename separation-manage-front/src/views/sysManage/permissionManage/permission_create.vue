@@ -121,7 +121,7 @@ export default {
         let treeList = changeListToTreeTwo(lists.data.lists, 'permissionId', 'permissionFid');
         //将tree的字段进行过滤
         this.treeMenu = recursionTree(treeList,'permissionId', 'permissionDescription', 'permissionName');
-        console.log(recursionTree(treeList,'permissionId', 'permissionDescription', 'permissionName'))
+       // console.log(recursionTree(treeList,'permissionId', 'permissionDescription', 'permissionName'))
       }
     },
     //点击树形控件

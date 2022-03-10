@@ -1,13 +1,287 @@
 <template>
-
+  <div class="mod-config">
+    <el-form :inline="true">
+      <el-form-item>
+        <el-autocomplete
+          value-key="roleName"
+          v-model="roleNameSearch"
+          :fetch-suggestions="querySearchGroup"
+          placeholder="请输入角色名称"
+          @focus="handlerInputChange"
+        >
+          <i
+            class="el-icon-edit el-input__icon"
+            slot="suffix"
+          >
+          </i>
+        </el-autocomplete>
+      </el-form-item>
+      <el-form-item>
+        <el-button  @click="search()">查询</el-button>
+        <!--v-if="isAuth('operation:tag:save')"-->
+        <el-button  type="primary" @click="create()">新增</el-button>
+        <!--v-if="isAuth('operation:tag:delete')"-->
+        <el-button  type="danger" @click="removes()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+      </el-form-item>
+    </el-form>
+    <el-table
+      :data="dataList"
+      border
+      v-loading="dataListLoading"
+      @selection-change="selectionChangeHandle"
+      style="width: 100%;">
+      <el-table-column
+        type="selection"
+        header-align="center"
+        align="center"
+        width="50">
+      </el-table-column>
+      <el-table-column
+        prop="roleId"
+        header-align="center"
+        align="center"
+        label="角色编号"
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="roleName"
+        header-align="center"
+        align="center"
+        label="角色名称">
+      </el-table-column>
+      <el-table-column
+        prop="roleDescription"
+        header-align="center"
+        align="center"
+        label="角色描述">
+      </el-table-column>
+      <el-table-column
+        fixed="right"
+        header-align="center"
+        align="center"
+        width="150"
+        label="操作">
+        <template slot-scope="scope" >
+          <!--@click="addOrUpdateHandle(scope.row.id)"-->
+          <el-button type="text" size="small" @click="listTreeByRoleId(scope.row.roleId)">查权限</el-button>
+          <el-button type="text" size="small" @click="update(scope.row)">修改</el-button>
+          <el-button type="text" size="small" @click="remove(scope.row.roleId)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-pagination
+      @size-change="sizeChangeHandle"
+      @current-change="currentChangeHandle"
+      :current-page="pageIndex"
+      :page-sizes="[7, 10, 20, 50, 100]"
+      :page-size="pageSize"
+      :total="totalPage"
+      layout="total, sizes, prev, pager, next, jumper">
+    </el-pagination>
+    <el-dialog
+      title="角色权限"
+      :visible.sync="dialogVisible"
+      width="30%">
+      <el-tree :data="treeMenu" :props="treeMenuProps"></el-tree>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
+import {changeListToTreeOne, changeListToTreeTwo} from '@/common/utils/tree.js'
+import {recursionTree} from '@/common/utils/recursion-permission.js'
 export default {
-  name: "role_list"
+  name: 'role_list',
+  data () {
+    return {
+      groupArr: [],   //根据输入信息模糊的下拉框内容
+      groupList: [],  //后台返回的直接查的数据
+      roleNameSearch: '',
+      dataForm: {
+        roleName:''
+      },
+      treeMenu:[], //可视化的权限
+      treeMenuProps: {
+        children: 'children',
+        label: 'permissionDescription'
+      },
+      dialogVisible: false, //弹窗是否可视
+      dataList: [],
+      pageIndex: 1,
+      pageSize: 7,
+      totalPage: 0,
+      dataListLoading: false,
+      dataListSelections: [],
+      addOrUpdateVisible: false
+    }
+  },
+  created(){
+    this.getDataList();
+  },
+  methods:{
+    //根据查询词去得到下拉菜单  cb(groupArr) 表示下拉菜单应用这个数组
+    querySearchGroup(queryString, cb) {
+      this.queryGroupByLike(queryString);
+      cb(this.groupArr);   //建议菜单就是groupArr数组
+    },
+    //根据查询词去后台模糊查询前10条数据(核心方法)
+    async queryGroupByLike(queryString){
+      let queryCondition = {
+        queryString : queryString
+      }
+      let res = await this.$api.role.queryGroupByLike(queryCondition);
+      this.groupList = res.data.record;
+      if(this.groupList.length >= 1){
+        this.groupArr = this.groupList.map((item)=>{
+          return {
+            roleName: item.roleName,
+          }
+        })
+      }else{
+        this.groupArr = [{roleName: '关键词下暂无数据'}];   //搜不到就显示为空
+      }
+    },
+    handlerInputChange(){
+      this.queryGroupByLike(this.roleNameSearch);
+    },
+    async getDataList(){
+      let queryCondition = {
+        roleName: ''
+      };
+      let params = {
+        currPage : this.pageIndex,
+        pageSize : this.pageSize,
+        dataForm: queryCondition
+      };
+      let response = await this.$api.role.listByPage(params);
+      //console.log(response);
+      this.totalPage = response.data.total;
+      this.dataList = response.data.record;
+    },
+    //搜索
+    async search(){
+      this.pageIndex = 1;
+      let queryCondition = {
+        roleName: this.roleNameSearch
+      };
+      let params = {
+        currPage : this.pageIndex,
+        pageSize : this.pageSize,
+        dataForm: queryCondition
+      };
+      let response = await this.$api.role.listByPage(params);
+      //console.log(response);
+      this.totalPage = response.data.total;
+      this.dataList = response.data.record;
+    },
+    // 每页数
+    sizeChangeHandle(val) {
+      this.pageSize = val;
+      this.pageIndex = 1;
+      this.getDataList()
+    },
+    // 当前页
+    currentChangeHandle(val) {
+      this.pageIndex = val;
+      this.getDataList()
+    },
+    // 多选
+    selectionChangeHandle(val) {
+      this.dataListSelections = val
+    },
+    //删除操作
+    remove(roleId){
+      let params = {
+        roleId: roleId
+      };
+      this.$confirm('将删除该内容, 是否确定?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        return this.$api.role.remove(params);
+      }).then((result) => {
+        //console.log(result);
+        if (result.data.code === 200) {
+          this.$message.success("删除成功");
+          this.getDataList();
+        }else if (result.data.code === 500){
+          this.$message.error("该角色下有绑定用户，请先将用户解绑角色");
+        }
+      }).catch((result) => {
+        if (result.data.code === 200) {
+          this.$message.error("删除失败")
+        }else if (result.data.code === 500){
+          this.$message.error("该角色下有绑定用户，请先将用户解绑角色");
+        }
+      });
+    },
+    //多选删除
+    removes() {
+      let ids = this.dataListSelections.map(item => {
+        return item.roleId
+      });
+      //删除数组
+      let params = ids;
+      this.$confirm('将删除选中内容, 是否确定?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(()=>{
+        return this.$api.role.removes(params);
+      }).then((result)=>{
+        if(result.data.code === 200){
+          this.$message.success("删除成功");
+          this.getDataList();
+        }else if (result.data.code === 500){
+          this.$message.error("该角色下有绑定用户，请先将用户解绑角色");
+        }
+      }).catch((result)=>{
+        if(result.data.code === 200){
+          this.$message.error("删除失败")
+        }else if (result.data.code === 500){
+          this.$message.error("该角色下有绑定用户，请先将用户解绑角色");
+        }
+      });
+    },
+    //创建标签
+    create(){
+      this.$router.push('/sys/role/create');
+    },
+    //更新
+    update(row){
+      this.$router.push({
+        path: '/sys/role/create',
+        query: {
+          roleId: row.roleId,
+          roleName: row.roleName,
+          roleDescription: row.roleDescription,
+        }
+      })
+    },
+    //根据角色id查看角色所拥有的权限
+    async listTreeByRoleId(roleId){
+      let params = {
+        roleId: roleId
+      };
+      let lists = await this.$api.role.listTreeByRoleId(params);  //后台根据角色id去查看角色集合
+      let treeList = changeListToTreeTwo(lists.data.lists, 'permissionId', 'permissionFid');
+      //将tree的字段进行过滤
+      this.treeMenu= recursionTree(treeList,'permissionId', 'permissionDescription', 'permissionName');
+      this.dialogVisible = true; //弹窗可视化
+    },
+  },
+  watch:{
+    'roleNameSearch': {
+      deep: true,
+      handler: function(newVal, oldVal) {
+        this.handlerInputChange();
+      }
+    }
+  }
 }
 </script>
-
-<style scoped>
-
-</style>

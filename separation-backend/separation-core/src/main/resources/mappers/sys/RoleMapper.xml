@@ -9,6 +9,17 @@
         <result column="role_enable" property="roleEnable" jdbcType="INTEGER" />
     </resultMap>
 
+    <resultMap id="DtoResultMap" type="cn.wyedward.core.entity.sys.dto.RoleDto" extends="BaseResultMap">
+        <collection property="permissionList" ofType="cn.wyedward.core.entity.sys.Permission" column="role_id" select="cn.wyedward.core.mapper.sys.PermissionMapper.findByRoleId">
+            <id column="permission_id" property="permissionId" jdbcType="INTEGER" />
+            <result column="permission_unique_id" property="permissionUniqueID" jdbcType="BIGING" />
+            <result column="permission_url" property="permissionUrl" jdbcType="VARCHAR" />
+            <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
+            <result column="permission_description;" property="permissionDescription" jdbcType="VARCHAR"/>
+            <result column="permission_fid" property="permissionFid" jdbcType="Integer"/>
+            <result column="permission_enable" property="permissionEnable" jdbcType="Integer"/>
+        </collection>
+    </resultMap>
     <sql id="Base_Column_List" >
        role_id, role_unique_id, role_name, role_description, role_enable
     </sql>
@@ -24,5 +35,12 @@
         LEFT JOIN sr_user u ON (u.`user_id` = ur.`uid`)
         WHERE u.user_name = #{userName,jdbcType=VARCHAR} and u.user_enable = 0
     </select>
-
+    <!--查找DTO  根据角色id去查找权限集合-->
+    <select id="findDtoById" resultMap="DtoResultMap" parameterType="java.lang.Integer">
+        select
+            <include refid="Base_Column_List"></include>
+        from
+            sr_role
+        where role_id = #{roleId}
+    </select>
 </mapper>

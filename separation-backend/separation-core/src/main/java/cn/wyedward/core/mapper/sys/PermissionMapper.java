@@ -12,6 +12,7 @@ import java.util.List;
 @Mapper
 public interface PermissionMapper extends BaseMapper<Permission> {
     List<Permission> findByUserName(@Param("userName") String userName);
+    List<Permission> findByRoleId(@Param("roleId") Integer roleId);
     //查找数据库数据封装到permissionDto
     List<PermissionDto> findDtoByPage(@Param("start") int start, @Param("end") int end, @Param("wrapper") PageQueryWrapper<PermissionDto> wrapper);
     //统计dto查找条数

@@ -4,10 +4,12 @@ import user from './sys/user'
 import job from './hour/job'
 import department from './hour/department'
 import permission from './sys/permission'
+import role from './sys/role'
 export default {
    test,
    user,
    job,
    department,
-   permission
+   permission,
+   role,
 }

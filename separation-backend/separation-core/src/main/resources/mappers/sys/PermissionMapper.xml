@@ -33,6 +33,17 @@
                 LEFT JOIN sr_user u ON (u.`user_id` = ur.`uid`)
         WHERE u.user_name = #{userName,jdbcType=VARCHAR} and u.user_enable = 0
     </select>
+
+    <!--根据角色户id去查找权限集合-->
+    <select id="findByRoleId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+            <include refid="Base_Column_List"></include>
+        FROM
+            sr_permission p
+                LEFT JOIN sr_role_permission rp ON (p.`permission_id` = rp.`pid`)
+                LEFT JOIN sr_role r ON (r.`role_id` = rp.`rid`)
+        WHERE r.role_id = #{roleId}
+    </select>
     <!--查询dto-->
     <select id="findDtoByPage" resultMap="DtoResultMap">
         select
