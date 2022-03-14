@@ -8,5 +8,6 @@ export default {
   listByPage: baseUrl + 'listByPage',
   remove: baseUrl + 'remove',
   removes: baseUrl + 'removes',
-  queryGroupByLike: baseUrl + 'queryGroupByLike'
+  queryGroupByLike: baseUrl + 'queryGroupByLike',
+  lists: baseUrl + 'lists'
 }

@@ -231,4 +231,16 @@ public class RoleController {
         bo.put("lists", lists);
         return bo;
     }
+
+    /**
+     * 加载角色表的所有数据集合
+     * @return
+     */
+    @PostMapping("/lists")
+    public ResponseBo lists(){
+        List<Role> lists = roleService.list();
+        ResponseBo bo = new ResponseBo();
+        bo.put("lists", lists);
+        return bo;
+    }
 }

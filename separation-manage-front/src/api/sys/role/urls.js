@@ -10,5 +10,6 @@ export default {
   removes: baseUrl + 'removes',
   queryGroupByLike: baseUrl + 'queryGroupByLike',
   listTreeByRoleId: baseUrl + 'listTreeByRoleId',
-  listPermissionByRoleId: baseUrl + 'listPermissionByRoleId'
+  listPermissionByRoleId: baseUrl + 'listPermissionByRoleId',
+  lists: baseUrl + 'lists'
 }

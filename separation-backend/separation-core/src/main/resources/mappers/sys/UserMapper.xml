@@ -13,7 +13,6 @@
         <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
         <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR" />
         <result column="user_enable" property="userEnable" jdbcType="INTEGER" />
-        <result column="user_department" property="userDepartment" jdbcType="INTEGER" />
     </resultMap>
 
     <resultMap id="User_Role_permission" type="cn.wyedward.core.entity.sys.dto.UserDto" extends="BaseResultMap" >
@@ -37,11 +36,11 @@
     </resultMap>
 
     <sql id="Base_Column_List" >
-        user_id, user_unique_id, user_name, user_nick, password, status,create_time,update_time,user_email,user_avatar,user_enable,user_department
+        user_id, user_unique_id, user_name, user_nick, password, status,create_time,update_time,user_email,user_avatar,user_enable
     </sql>
 
     <sql id="Without_Password" >
-        user_name, create_time, user_avatar, user_nick, update_time, user_email, user_department
+        user_name, create_time, user_avatar, user_nick, update_time, user_email
     </sql>
 
     <select id="getUserRolePermission" resultMap="User_Role_permission" parameterType="java.lang.String">

@@ -1,10 +1,12 @@
 import globalVariable from '@/common/global_variable.js';
 //表示这个类别的api
-const baseUrl = globalVariable.baseUrl
+const baseUrl = globalVariable.baseUrl + '/user/'
 
 export default {
-  //登录
-  login: baseUrl + '/login',
-  //获取用户信息
-  getUser: baseUrl + '/getUser',
+  //更新或插入项目
+  insertOrUpdate: baseUrl + 'insertOrUpdate',
+  listByPage: baseUrl + 'listByPage',
+  remove: baseUrl + 'remove',
+  removes: baseUrl + 'removes',
+  queryGroupByLike: baseUrl + 'queryGroupByLike'
 }

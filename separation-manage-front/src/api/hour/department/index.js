@@ -37,5 +37,9 @@ export default {
   },
   queryGroupByLike(params) {
     return api.post(urls.queryGroupByLike, Qs.stringify(params), beforeSend(headerParam))
+  },
+  lists(params){
+    params = {}
+    return api.post(urls.lists, params, beforeSend(header));
   }
 }

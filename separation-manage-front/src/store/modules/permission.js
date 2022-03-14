@@ -1,4 +1,4 @@
-import user from '@/api/sys/user'
+import login from '@/api/sys/login'
 import router, { DynamicRoutes } from '@/router/index'
 import { recursionRouter } from '@/common/utils/recursion-router' //调用处理路由的方法
 import dynamicRouter from '@/router/dynamic-router'
@@ -43,7 +43,7 @@ const actions = {
             userName: sessionStorage.getItem('userName')
         };
         //console.log("后台权限路由数组:+---------");
-        let uContent = await user.getUser(params);
+        let uContent = await login.getUser(params);
         let u = uContent.data;
         let pList = u.permissionList.map((item)=>{
             return item.permissionUrl;

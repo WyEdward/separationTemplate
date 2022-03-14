@@ -41,4 +41,8 @@ export default {
   listPermissionByRoleId(params){
     return api.post(urls.listPermissionByRoleId, Qs.stringify(params), beforeSend(headerParam))
   },
+  lists(params){
+    params = {}
+    return api.post(urls.lists, params, beforeSend(header));
+  }
 }

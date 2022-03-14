@@ -20,19 +20,13 @@ function beforeSend(header){
 
 import Qs from 'qs'
 export default {
-  insertOrUpdate(params){
-    return api.post(urls.insertOrUpdate, params, beforeSend(header))
+  /** 登录*/
+  login(params){
+    return api.post(urls.login, params, beforeSend(header))
   },
-  listByPage(params){
-    return api.post(urls.listByPage, params, beforeSend(header))
+  /** 获取用户信息*/
+  getUser(params){
+    return api.post(urls.getUser, Qs.stringify(params), beforeSend(headerParam));
   },
-  remove(params){
-    return api.post(urls.remove, Qs.stringify(params), beforeSend(headerParam))
-  },
-  removes(params){
-    return api.post(urls.removes, params, beforeSend(header))
-  },
-  queryGroupByLike(params) {
-    return api.post(urls.queryGroupByLike, Qs.stringify(params), beforeSend(headerParam))
-  }
+
 }

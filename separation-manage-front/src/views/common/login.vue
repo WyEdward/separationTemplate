@@ -62,7 +62,7 @@
                     password: this.dataForm.password,
                     rememberMe: this.dataForm.rememberMe
                 };
-                let resultContent = await this.$api.user.login(params);
+                let resultContent = await this.$api.login.login(params);
                 let result = resultContent.data;
                 console.log(result);
                 if(result.code === 200){

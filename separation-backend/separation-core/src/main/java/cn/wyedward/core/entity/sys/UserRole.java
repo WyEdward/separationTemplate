@@ -12,4 +12,8 @@ public class UserRole implements Serializable {
     private Integer urId;
     private Integer uid;
     private Integer rid;
+    public UserRole(int uid, int rid){
+        this.uid = uid;
+        this.rid = rid;
+    }
 }

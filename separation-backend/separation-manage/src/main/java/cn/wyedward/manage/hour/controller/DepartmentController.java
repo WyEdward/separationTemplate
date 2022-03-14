@@ -3,6 +3,7 @@ package cn.wyedward.manage.hour.controller;
 import cn.wyedward.core.common.ResponseBo;
 import cn.wyedward.core.entity.hour.Department;
 import cn.wyedward.core.entity.hour.vo.DepartmentVo;
+import cn.wyedward.core.entity.sys.Permission;
 import cn.wyedward.core.utils.SnowflakeIdUtils;
 import cn.wyedward.manage.hour.service.DepartmentService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -107,5 +108,14 @@ public class DepartmentController {
         ResponseBo bo = new ResponseBo();
         bo.put("record", page.getRecords());
         return bo;
+    }
+
+    @PostMapping("/lists")
+    @Transactional
+    public ResponseBo lists(){
+        List<Department> lists = departmentService.list();
+        ResponseBo responseBo = new ResponseBo();
+        responseBo.put("lists", lists);
+        return responseBo;
     }
 }
