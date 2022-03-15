@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v12.09 (64 bit)
-MySQL - 5.5.40 : Database - srworkhoursmanage
+SQLyog Enterprise v12.09 (64 bit)
+MySQL - 5.5.40 : Database - separationtemplate
 *********************************************************************
 */
 
@@ -12,25 +12,9 @@ MySQL - 5.5.40 : Database - srworkhoursmanage
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`srworkhoursmanage` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`separationtemplate` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin */;
 
-USE `srworkhoursmanage`;
-
-/*Table structure for table `sr_audit` */
-
-DROP TABLE IF EXISTS `sr_audit`;
-
-CREATE TABLE `sr_audit` (
-  `audit_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '审核id',
-  `audit_unique_id` bigint(20) unsigned zerofill DEFAULT NULL COMMENT '全局唯一id',
-  `user_job_id` int(11) DEFAULT NULL COMMENT '审核任务id',
-  `audit_time` datetime DEFAULT NULL COMMENT '审核时间',
-  `audit_person_id` int(11) DEFAULT NULL COMMENT '审核人id',
-  `audit_enable` int(11) DEFAULT NULL COMMENT '是否删除(1删除)',
-  PRIMARY KEY (`audit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
-/*Data for the table `sr_audit` */
+USE `separationtemplate`;
 
 /*Table structure for table `sr_department` */
 
@@ -146,28 +130,6 @@ CREATE TABLE `sr_user` (
 /*Data for the table `sr_user` */
 
 insert  into `sr_user`(`user_id`,`user_unique_id`,`user_name`,`user_nick`,`password`,`status`,`create_time`,`update_time`,`user_email`,`user_avatar`,`user_enable`,`user_department`) values (1,NULL,'superAdmin','superAdmin','ff6fd6593f362775bca116f9d2cc8e1c',0,NULL,NULL,'12312',NULL,0,1),(2,NULL,'admin','admin','f086a112004a6e0c9b9984855c971c7d',0,NULL,'2022-03-15 14:32:15','123214',NULL,0,2),(3,NULL,'test','test','e5b33dd67c6e8d6d0b5d4cab11d1aeff',0,NULL,'2022-03-14 13:29:25','sdfsdf',NULL,0,1),(4,952920989778448384,'test4','test4','f3376247f190a2ae2cec92d708faee11',0,'2022-03-14 00:00:00',NULL,'4444',NULL,0,NULL);
-
-/*Table structure for table `sr_user_job` */
-
-DROP TABLE IF EXISTS `sr_user_job`;
-
-CREATE TABLE `sr_user_job` (
-  `user_job_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户任务id',
-  `user_job_unique_id` bigint(20) DEFAULT NULL COMMENT '全局唯一id',
-  `u_id` int(11) DEFAULT NULL COMMENT '用户id',
-  `j_id` int(11) DEFAULT NULL COMMENT '项目id',
-  `first_time` datetime DEFAULT NULL COMMENT '任务起始时间',
-  `last_time` datetime DEFAULT NULL COMMENT '任务结束时间',
-  `total_time` datetime DEFAULT NULL COMMENT '任务持续时间',
-  `push_time` datetime DEFAULT NULL COMMENT '提交表单时间',
-  `user_job_enable` int(11) DEFAULT NULL COMMENT '是否删除(1删除)',
-  `is_audit` int(11) DEFAULT '0' COMMENT '是否审核',
-  `audit_id` int(11) DEFAULT '0' COMMENT '审核id(默认为0)',
-  `update_time` datetime DEFAULT NULL COMMENT '更新表单时间',
-  PRIMARY KEY (`user_job_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
-/*Data for the table `sr_user_job` */
 
 /*Table structure for table `sr_user_role` */
 
