@@ -176,7 +176,7 @@ export default {
         dataForm: queryCondition
       };
       let response = await this.$api.user.listDtoByPage(params);
-      console.log(response);
+      //console.log(response);
       this.totalPage = response.data.total;
       this.dataList = response.data.record;
     },

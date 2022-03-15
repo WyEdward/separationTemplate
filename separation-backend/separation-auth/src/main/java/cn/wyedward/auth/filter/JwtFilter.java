@@ -13,6 +13,27 @@ import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import org.springframework.web.bind.annotation.SessionAttribute;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +49,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
      */
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws UnauthorizedException {
-        //System.out.println("---------------------");
+       // System.out.println("---------------------");
         //System.out.println("isAccessAllowed：");
         //判断请求的请求头是否带上 "Token"
         if (isLoginAttempt(request, response)) {
@@ -81,7 +102,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
      */
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
-       // System.out.println("executeLogin：");
+        //System.out.println("executeLogin：");
         //根据header头中带的Authorization 中的token字符串转化为token对象
         AuthenticationToken token = this.createToken(request, response);
         //System.out.println(token);
@@ -92,23 +113,23 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         } else {
             try {
                 subject = this.getSubject(request, response);
-                //System.out.println("shiroRealm进行身份认证：");
+               // System.out.println("shiroRealm进行身份认证：");
                 subject.login(token);
                 //System.out.println("shiroRealm进行身份认证成功：");
                 return this.onLoginSuccess(token, subject, request, response);
             } catch (AuthenticationException var5) {
-                //System.out.println("shiroRealm进行身份认证失败 尝试重新获取token登录");
+               // System.out.println("shiroRealm进行身份认证失败 尝试重新获取token登录");
                 //刷新token
                 //AccessToken 过期啦或者为null或第一次验证没有过  然后通过RefeshKey刷新一次AccessToken 再执行验证
                 if(refreshToken(request,response)){
-                    //System.out.println("token在刷新");
+                   // System.out.println("token在刷新");
                     //重新判断身份
                     String newtoken;
                     //重新获取header的token
                     newtoken = ((HttpServletResponse)response).getHeader("Authorization");
                     //再执行新token的验证
                     subject.login(new JwtToken(newtoken));
-                    //System.out.println("token刷新通过：");
+                   // System.out.println("token刷新通过：");
                     return this.onLoginSuccess(new JwtToken(newtoken), subject, request, response);
                 }else{
                     //System.out.println("token刷新不通过：");
@@ -163,7 +184,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
      * @return
      */
     private boolean refreshToken(ServletRequest request, ServletResponse response) {
-       // System.out.println("refreshToken：");
+        System.out.println("refreshToken：");
         String token = ((HttpServletRequest)request).getHeader("Authorization");
         String username = JwtUtil.getUsername(token);
         Long currentTime=JwtUtil.getCurrentTime(token);
@@ -181,6 +202,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
                 Long currentTimeMillis =System.currentTimeMillis();
                 RedisUtil.set("freshKey:"+username, currentTimeMillis,
                        JwtUtil.REFRESH_EXPIRE_TIME);
+                //System.out.println("重新设置了redis freshkey值");
                 // 刷新AccessToken，设置时间戳为当前最新时间戳
                 token = JwtUtil.createToken(username, currentTimeMillis);
                 //System.out.println("更新后:"+token);
@@ -190,7 +212,8 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
                 //System.out.println("更新后的token");
                 //设置header为新token
                 httpServletResponse.setHeader("Authorization", token);
-                System.out.println("返回给前端的新凭证:"+httpServletResponse.getHeader("Authorization"));
+                //System.out.println("返回给前端的新凭证:"+httpServletResponse.getHeader("Authorization"));
+
                 httpServletResponse.setHeader("Access-Control-Expose-Headers", "Authorization");
                 return true;
             }
@@ -244,7 +267,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
             HttpServletResponse httpServletResponse = (HttpServletResponse) response;
             //设置编码，否则中文字符在重定向时会变为空字符串
             message = URLEncoder.encode(message, "UTF-8");
-            httpServletResponse.sendRedirect("/unauthorized/"+message);
+            httpServletResponse.sendRedirect("/#/error/"+message);
         } catch (IOException e) {
             log.error(e.getMessage());
         }

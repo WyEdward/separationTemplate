@@ -6,6 +6,9 @@ import Index from '@/views/layout'
 import Home from '@/views/common/home'
 import Login from '@/views/common/login'
 
+import Error from '@/views/common/error'
+import NotFound from '@/views/common/error/404'
+
 Vue.use(Router)
 
 //以下代码解决路由地址重复点击的报错问题
@@ -24,6 +27,19 @@ export default new Router({
       name: 'Login',
       component: Login
     },
+    {
+      path:'/error',
+      name:'Error',
+      component: Error,
+      redirect: '/error/404',
+      children:[
+        {
+          path:'/error/404',
+          name:'NotFound',
+          component: NotFound
+        },
+      ]
+    }
   ]
 })
 

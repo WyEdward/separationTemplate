@@ -1,6 +1,7 @@
 import axios from 'axios'
 import browser from '../common/utils/browser'
-
+import {clearLoginInfo} from "../common/utils";
+import router from '@/router'      //路由
 // 创建 axios 实例
 let http = axios.create({
   // headers: {'Content-Type': 'application/json'},
@@ -14,7 +15,6 @@ http.defaults.headers.put['Content-Type'] = 'application/json'
 // 添加请求拦截器
 http.interceptors.request.use(config => {
   // console.log(config)
-
   // console.log('拦截了');
   if (config.method === 'post' || config.method === 'put') {
     // post、put 提交时，将对象转换为string, 为处理Java后台解析问题
@@ -31,6 +31,39 @@ http.interceptors.request.use(config => {
   return Promise.reject(error)
 })
 
+
+// 添加响应拦截器
+http.interceptors.response.use(response => {
+  //console.log(response);
+  if(response.data.code === 1002){
+    alert("您的凭证已经过期，请重新登录");
+    clearLoginInfo();
+   router.push({path: '/login'})
+  }
+  if(response.headers.authorization){
+    sessionStorage.setItem("token", response.headers.authorization);
+  }
+  //console.log('响应了');
+  /*let {data} = response*/
+  return response
+}, error => {
+  let info = {}
+  let {status, statusText, data} = error.response
+  if (!error.response) {
+    info = {
+      code: 5000,
+      msg: 'Network Error'
+    }
+  } else {
+    // 此处整理错误信息格式
+    info = {
+      code: status,
+      data: data,
+      msg: statusText
+    }
+  }
+  return Promise.reject(info)
+})
 
 /**
  * 创建统一封装过的 axios 实例
