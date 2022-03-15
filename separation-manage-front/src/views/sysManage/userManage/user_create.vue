@@ -9,13 +9,13 @@
           <el-form-item label="用户昵称" prop="userNick">
             <el-input v-model="dataForm.userNick" placeholder="用户昵称"></el-input>
           </el-form-item>
-          <el-form-item label="用户角色" prop="userRoles">
+          <el-form-item label="用户角色" prop="roleLists">
             <el-select v-model="roleDefaultSelections" multiple placeholder="请选择角色">
               <el-option
-                v-for="item in roleList"
+                v-for="item in roleAllList"
                 :key="item.roleId"
                 :label="item.roleDescription"
-                :value="item.roleId+''">
+                :value="item.roleId +''">
               </el-option>
             </el-select>
           </el-form-item>
@@ -35,7 +35,7 @@
 
 <script>
 export default {
-  name: "user_create",
+  name: 'user_create',
   data () {
     return {
       //上传到服务器的对象
@@ -44,26 +44,23 @@ export default {
         userName: '',
         userNick: '',
         userEmail: '',
-        userRoles: []
+        roleList: []
       },
-      roleList:[],            //角色集
+      roleAllList:[],            // 角色集
       roleDefaultSelections:[],     //默认选中的角色
-
 
       dataRule: {
         userName: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
         userNick: [{ required: true, message: '用户昵称不能为空', trigger: 'blur' }],
-        userRoles: [{  required: true, message: '角色不能为空', trigger: 'blur' }],
+        //roleLists: [{  required: true, message: '角色不能为空', trigger: 'blur' }],
       }
     }
   },
   created(){
     this.dataForm = this.$route.query;
     this.loadRoles();
-    this.loadDepartments();
     if(this.$route.query.userId != null){
-      this.roleDefaultSelections = ['1']  //this.dataForm.userRoles;
-      this.departmentDefaultSelections = this.dataForm.userDepartment; //修改为number 因为后台id数据是number
+      this.roleDefaultSelections = this.$route.query.roleList;  //this.dataForm.roleLists;
      //this.departmentDefaultSelections = this.departmentDefaultSelections.toString();
     }
   },
@@ -80,7 +77,7 @@ export default {
     },
     //保存标签
     async save(){
-      this.dataForm.userRoles = this.roleDefaultSelections;
+      this.dataForm.roleList = this.roleDefaultSelections;
       let params = this.dataForm;
       let response = await this.$api.user.insertOrUpdate(params);
       if(response && response.data.code === 200){
@@ -91,13 +88,14 @@ export default {
       }
     },
     reset(){
-      this.dataForm.userName = '';
-      this.dataForm.userDescription = '';
+      this.dataForm.userNick = '';
+      this.dataForm.userEmail = '';
+      this.roleDefaultSelections = [];
     },
     //角色多选项数据加载
     async loadRoles(){
       let res = await this.$api.role.lists();
-      this.roleList = res.data.lists;
+      this.roleAllList = res.data.lists;
     },
   }
 }

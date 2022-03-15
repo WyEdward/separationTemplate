@@ -72,16 +72,19 @@
           .user_info{
             width: 150px;
             display: inline-block;
-
             text-align: center;
             color: black;
           }
           .system_logout{
             width: 50px;
+            height: 60px;
             display: inline-block;
-
             text-align: center;
-            color: black;
+            line-height: 60px;
+            border-left: 1px solid #409EFF;
+            &:hover{
+              background-color: white;
+            }
           }
         }
       }

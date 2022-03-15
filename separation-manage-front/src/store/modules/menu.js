@@ -29,11 +29,23 @@ const mutations = {
     // 设置当前激活的tab
     set_active_index (state, index) {
         state.activeIndex = index;
-    }
+    },
 }
-
+const actions ={
+  //注销重置state
+  set_default() {
+    state.options = [             //表示主内容的导航栏 小页面
+      {
+        name: '首页',
+        route:'/home'
+      }
+    ]
+    state.activeIndex =  '/home'
+  }
+}
 export default {
     namespaced:true,//用于在全局引用此文件里的方法时标识这一个的文件名
     state,
     mutations,
+    actions
 }

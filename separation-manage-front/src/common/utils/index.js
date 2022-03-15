@@ -18,9 +18,11 @@ export function getUUID () {
  * @date 18-9-28
  */
 export function clearLoginInfo () {
-    Vue.cookie.delete('token')
-    store.commit('resetStore')
-    router.options.isAddDynamicMenuRoutes = false
+  store.state.isSidebarNavCollapse = false;
+  store.state.crumbList = [];
+  store.dispatch('currentUser/set_default')
+  store.dispatch('permission/set_default')
+  store.dispatch('menu/set_default')
 }
 
 export function isAuth (key) {

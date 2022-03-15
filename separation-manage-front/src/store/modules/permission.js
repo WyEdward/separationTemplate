@@ -32,8 +32,7 @@ const mutations = {
     },
     SET_IS_FLESH(state, val){
         state.isFlesh = val;
-    }
-
+    },
 };
 
 const actions = {
@@ -81,6 +80,14 @@ const actions = {
         //console.log("菜单+-----------");
         commit('SET_MENU', children);
         //console.log(children);
+    },
+    //重置default
+    set_default() {
+      state.isFlesh = 0;
+      state.permissionList = null;
+      state.sidebarMenu = [];
+      state.control_list = [];
+      state.currentMenu = '';
     }
 };
 export default {

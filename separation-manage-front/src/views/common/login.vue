@@ -3,8 +3,8 @@
         <div class="site-content__wrapper">
             <div class="site-content">
                 <div class="brand-info">
-                    <h2 class="brand-info__text">宁波萨瑞通讯</h2>
-                    <p class="brand-info__intro">管理系统</p>
+                    <h2 class="brand-info__text">实验室统计工时系统</h2>
+                    <p class="brand-info__intro">宁波萨瑞通讯</p>
                 </div>
                 <div class="login-main">
                     <h3 class="login-title">用户登录</h3>
@@ -64,7 +64,6 @@
                 };
                 let resultContent = await this.$api.login.login(params);
                 let result = resultContent.data;
-                console.log(result);
                 if(result.code === 200){
                     this.$message.success("登录成功");
                     if(sessionStorage.getItem('userName') === null){
@@ -73,15 +72,19 @@
                         console.log(this.dataForm.userName);*/
                         let permissionList = result.permissionList;
                         permissionList = permissionList.map((item)=>{return item.permissionName});
+                        //console.log('正在进行登陆后session的加载')
                         sessionStorage.setItem("permissionList", permissionList);
                         this.$store.commit('currentUser/setToken', result.token);
                         this.$store.commit('currentUser/setUserName', this.dataForm.userName);
                         this.$store.commit('currentUser/setNickName', result.nickName);
                         this.$store.commit('currentUser/setUserId', result.userId);
+                        //console.log('是否刷新:' + this.$store.state.permission.isFlesh)
                         if(!this.$store.state.permission.isFlesh){
+                        //console.log('正在进行登陆后权限的初始化')
                             this.$store.dispatch('permission/init').then(()=>{});
                             this.$store.commit('permission/SET_IS_FLESH', 1);
                         }
+                        //console.log('正在进行登陆后权限的初始化完成')
                         this.$router.push({
                             path:'/home'
                         });
@@ -98,7 +101,7 @@
                         this.$message.error("本地只能登一个账号，请退出当前账号");
                     }
                 }else{
-                    this.$message.error("登录失败");
+                    this.$message.error("用户名或密码错误，登录失败");
                 }
             }
         }

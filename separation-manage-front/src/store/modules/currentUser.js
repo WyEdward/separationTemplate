@@ -33,11 +33,21 @@ const mutations = {
         sessionStorage.setItem('nickName', nickName);
         state.nickName = nickName;
     }
-
 }
 
+const actions = {
+  //重置default
+  set_default(){
+    sessionStorage.removeItem('nickName');
+    sessionStorage.removeItem('permissionList');
+    sessionStorage.removeItem('userName');
+    sessionStorage.removeItem('userId');
+    sessionStorage.removeItem('token')
+  }
+}
 export default {
     namespaced: true,//用于在全局引用此文件里的方法时标识这一个的文件名
     state,
     mutations,
+    actions
 }

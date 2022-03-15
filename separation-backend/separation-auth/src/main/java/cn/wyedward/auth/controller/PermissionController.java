@@ -1,10 +1,13 @@
 package cn.wyedward.auth.controller;
 
 import cn.wyedward.auth.service.PermissionService;
+import cn.wyedward.auth.service.RolePermissionService;
 import cn.wyedward.core.common.ResponseBo;
 import cn.wyedward.core.entity.common.PageBean;
 import cn.wyedward.core.entity.common.PageQueryWrapper;
 import cn.wyedward.core.entity.sys.Permission;
+import cn.wyedward.core.entity.sys.RolePermission;
+import cn.wyedward.core.entity.sys.UserRole;
 import cn.wyedward.core.entity.sys.dto.PermissionDto;
 import cn.wyedward.core.entity.sys.vo.PermissionVo;
 import cn.wyedward.core.utils.SnowflakeIdUtils;
@@ -26,6 +29,8 @@ public class PermissionController {
     @Autowired
     private PermissionService permissionService;
 
+    @Autowired
+    private RolePermissionService rolePermissionService;
     /**
      * 分页查询
      * @return
@@ -128,7 +133,13 @@ public class PermissionController {
     @PostMapping("/remove")
     public ResponseBo remove(@RequestParam("permissionId") Integer permissionId){
         boolean res = permissionService.removeById(permissionId);
-        if(res){
+
+        //定义查询器
+        LambdaQueryWrapper<RolePermission> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(RolePermission::getPid, permissionId);
+        boolean result = rolePermissionService.remove(queryWrapper);       //移除中间表中之前的关联数据
+
+        if(res && result){
             return new ResponseBo();
         }else{
             return ResponseBo.error();
@@ -139,6 +150,16 @@ public class PermissionController {
     @Transactional
     public ResponseBo removes(@RequestBody List<Integer> permissionIds){
         boolean res = permissionService.removeByIds(permissionIds);
+
+        for(int i = 0; i < permissionIds.size(); i++){
+            //定义查询器
+            LambdaQueryWrapper<RolePermission> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(RolePermission::getPid, permissionIds.get(i));
+            boolean result = rolePermissionService.remove(queryWrapper);       //移除中间表中之前的关联数据
+            if(!result){
+                return ResponseBo.error();
+            }
+        }
         if(res){
             return new ResponseBo();
         }else{

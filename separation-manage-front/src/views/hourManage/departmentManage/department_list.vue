@@ -17,7 +17,7 @@
         </el-autocomplete>
       </el-form-item>
       <el-form-item>
-        <el-button  @click="search()">查询</el-button>
+        <el-button  @click="querySearch(1)">查询</el-button>
         <!--v-if="isAuth('operation:tag:save')"-->
         <el-button  type="primary" @click="create()">新增</el-button>
         <!--v-if="isAuth('operation:tag:delete')"-->
@@ -163,7 +163,6 @@ export default {
     },
     //搜索
     async search(){
-      this.pageIndex = 1;
       let queryCondition = {
         departmentName: this.departmentNameSearch
       };
@@ -177,16 +176,21 @@ export default {
       this.totalPage = response.data.total;
       this.dataList = response.data.record;
     },
+    //点击查询默认跳到第一页
+    querySearch(pageIndex){
+      this.pageIndex = pageIndex;
+      this.search()
+    },
     // 每页数
     sizeChangeHandle(val) {
       this.pageSize = val;
       this.pageIndex = 1;
-      this.getDataList()
+      this.search()
     },
     // 当前页
     currentChangeHandle(val) {
       this.pageIndex = val;
-      this.getDataList()
+      this.search()
     },
     // 多选
     selectionChangeHandle(val) {

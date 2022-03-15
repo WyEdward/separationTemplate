@@ -25,6 +25,14 @@ import PermissionCreate from '../views/sysManage/permissionManage/permission_cre
 import RoleManage from '../views/sysManage/roleManage'
 import RoleList from '../views/sysManage/roleManage/role_list'
 import RoleCreate from '../views/sysManage/roleManage/role_create'
+
+import PasswordManage from '../views/sysManage/passwordManage'
+import ResetPassword from '../views/sysManage/passwordManage/resetPassword'
+
+import PersonManage from '../views/sysManage/personManage'
+import PersonView from '../views/sysManage/personManage/person_view'
+import PersonUpdate from '../views/sysManage/personManage/person_update'
+
 /* 需要权限判断的路由 */
 const dynamicRoutes = [
   {
@@ -255,7 +263,61 @@ const dynamicRoutes = [
             children:[]
           }
         ]
-      }
+      },
+      {
+        path: '/sys/password',
+        component: PasswordManage,
+        redirect: '/sys/password/reset',
+        name: '密码管理',
+        meta: {
+          name: '密码管理',
+          icon: 'tree'
+        },
+        children: [
+          {
+            path: '/sys/password/reset',
+            component: ResetPassword,
+            name: '修改密码',
+            meta: {
+              name: '修改密码',
+              icon: 'tree'
+            },
+            children:[]
+          }
+        ]
+      },
+      {
+        path: '/sys/person',
+        component: PersonManage,
+        redirect: '/sys/person/view',
+        name: '个人信息',
+        meta: {
+          name: '个人信息',
+          icon: 'tree'
+        },
+        children: [
+          {
+            path: '/sys/person/view',
+            component: PersonView,
+            name: '信息查看',
+            meta: {
+              name: '信息查看',
+              icon: 'tree'
+            },
+            children:[]
+          },
+          {
+            path: '/sys/person/update',
+            component: PersonUpdate,
+            name: '信息更新',
+            meta: {
+              name: '信息更新',
+              icon: 'tree'
+            },
+            children:[]
+          }
+        ]
+      },
     ]
   }
 ]

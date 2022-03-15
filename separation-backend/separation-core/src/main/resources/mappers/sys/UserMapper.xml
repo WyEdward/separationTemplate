@@ -8,8 +8,8 @@
         <result column="user_nick" property="userNick" jdbcType="VARCHAR" />
         <result column="password" property="password" jdbcType="VARCHAR" />
         <result column="status" property="status" jdbcType="INTEGER" />
-        <result column="create_time" property="createTime" jdbcType="DATE" />
-        <result column="update_time" property="updateTime" jdbcType="DATE" />
+        <result column="create_time" property="createTime" javaType="DATE" />
+        <result column="update_time" property="updateTime" javaType="DATE" />
         <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
         <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR" />
         <result column="user_enable" property="userEnable" jdbcType="INTEGER" />
@@ -40,7 +40,7 @@
     </sql>
 
     <sql id="Without_Password" >
-        user_name, create_time, user_avatar, user_nick, update_time, user_email
+        user_id, user_name, create_time, user_avatar, user_nick, update_time, user_email
     </sql>
 
     <select id="getUserRolePermission" resultMap="User_Role_permission" parameterType="java.lang.String">
@@ -50,4 +50,46 @@
         where user_name = #{userName} AND user_enable = 0
     </select>
 
+    <select id="getUserRolePermissionByPage" resultMap="User_Role_permission" parameterType="java.lang.String">
+        select
+        <include refid="Without_Password" />
+        from sr_user
+        <where>
+            <if test="wrapper.queryCondition != null and wrapper.queryCondition.userName !=null  ">
+                and user_name like concat("%", #{wrapper.queryCondition.userName}, "%")
+            </if>
+            and user_enable = 0
+        </where>
+        limit #{start}, #{end}
+    </select>
+
+    <select id="countDto" resultType="java.lang.Integer">
+        select
+            count(user_id)
+        from sr_user
+        <where>
+            <if test="wrapper.queryCondition != null and wrapper.queryCondition.userName !=null  ">
+                and user_name like concat("%", #{wrapper.queryCondition.userName}, "%")
+            </if>
+            and user_enable = 0
+        </where>
+    </select>
+
+    <select id="getPasswordByUserName" resultType="java.lang.String" parameterType="java.lang.String">
+        select
+            password
+        from
+            sr_user
+        where user_name = #{userName}
+    </select>
+
+    <update id="resetPassword" parameterType="java.lang.String">
+        update sr_user
+        <set>
+            <if test="newPassword != null">
+                password = #{newPassword}
+            </if>
+        </set>
+        where user_name = #{userName}
+    </update>
 </mapper>

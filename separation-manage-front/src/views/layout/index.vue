@@ -45,10 +45,10 @@
         </div>
         <div class="info">
             <div class="user_info">
-               欢迎您,{{ nickName }}
+               欢迎您, {{ nickName }}
             </div>
-            <div class="system_logout">
-                登出
+            <div class="system_logout" @click="systemLogout" >
+              注销
             </div>
         </div>
       </header>
@@ -65,6 +65,7 @@
   import DynamicMenu from './component/dynamic-menu'
   import Content from './component/content'
   import { mapState } from 'vuex'
+  import {clearLoginInfo} from '@/common/utils'
   export default {
     name: "sidebar-nav",
     data(){
@@ -82,6 +83,15 @@
 
       },
       handleClose() {
+
+      },
+      /*登出注销*/
+      systemLogout(){
+        clearLoginInfo();
+        this.$router.push({path: '/login'})
+        location.reload();
+        sessionStorage.removeItem('tabViews')
+        sessionStorage.removeItem('activeIndex')
 
       }
     },

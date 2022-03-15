@@ -26,6 +26,9 @@ export default {
   listByPage(params){
     return api.post(urls.listByPage, params, beforeSend(header))
   },
+  listDtoByPage(params){
+    return api.post(urls.listDtoByPage, params, beforeSend(header))
+  },
   remove(params){
     return api.post(urls.remove, Qs.stringify(params), beforeSend(headerParam))
   },
@@ -34,5 +37,11 @@ export default {
   },
   queryGroupByLike(params) {
     return api.post(urls.queryGroupByLike, Qs.stringify(params), beforeSend(headerParam))
+  },
+  resetDefaultPassword(params){
+    return api.post(urls.resetDefaultPassword, Qs.stringify(params), beforeSend(headerParam))
+  },
+  resetPassword(params){
+    return api.post(urls.resetPassword, params, beforeSend(header))
   }
 }

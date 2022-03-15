@@ -17,7 +17,7 @@
         </el-autocomplete>
       </el-form-item>
       <el-form-item>
-        <el-button  @click="search()">查询</el-button>
+        <el-button  @click="querySearch(1)">查询</el-button>
         <!--v-if="isAuth('operation:tag:save')"-->
         <el-button  type="primary" @click="create()">新增</el-button>
         <!--v-if="isAuth('operation:tag:delete')"-->
@@ -79,7 +79,7 @@
         align="center"
         label="创建时间">
         <template slot-scope="scope">
-          {{ scope.row.updateTime | dateformat }}
+          {{ scope.row.createTime | dateformat }}
         </template>
       </el-table-column>
       <el-table-column
@@ -101,6 +101,7 @@
           <!--@click="addOrUpdateHandle(scope.row.id)"-->
           <el-button type="text" size="small" @click="update(scope.row)">修改</el-button>
           <el-button type="text" size="small" @click="remove(scope.row.userId)">删除</el-button>
+          <el-button type="text" size="small" @click="resetPassword(scope.row.userName)">重置密码</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -174,14 +175,13 @@ export default {
         pageSize : this.pageSize,
         dataForm: queryCondition
       };
-      let response = await this.$api.user.listByPage(params);
-      //console.log(response);
+      let response = await this.$api.user.listDtoByPage(params);
+      console.log(response);
       this.totalPage = response.data.total;
       this.dataList = response.data.record;
     },
-    //搜索
+    //搜索 加第几页参数
     async search(){
-      this.pageIndex = 1;
       let queryCondition = {
         userName: this.userNameSearch
       };
@@ -190,21 +190,26 @@ export default {
         pageSize : this.pageSize,
         dataForm: queryCondition
       };
-      let response = await this.$api.user.listByPage(params);
+      let response = await this.$api.user.listDtoByPage(params);
       //console.log(response);
       this.totalPage = response.data.total;
       this.dataList = response.data.record;
+    },
+    //点击查询默认跳到第一页
+    querySearch(pageIndex){
+      this.pageIndex = pageIndex;
+      this.search()
     },
     // 每页数
     sizeChangeHandle(val) {
       this.pageSize = val;
       this.pageIndex = 1;
-      this.getDataList()
+      this.search()
     },
     // 当前页
     currentChangeHandle(val) {
       this.pageIndex = val;
-      this.getDataList()
+      this.search()
     },
     // 多选
     selectionChangeHandle(val) {
@@ -272,9 +277,22 @@ export default {
           userNick: row.userNick,
           userEmail: row.userEmail,
           userDepartment: row.userDepartment,
-          userRoles: row.userRoles,
+          roleList: row.roleList.map((item)=> {
+            return item.roleId
+          }),
         }
       })
+    },
+    async resetPassword(userName){
+      let params ={
+        userName : userName
+      }
+      let res = await this.$api.user.resetDefaultPassword(params);
+      if(res.data.code === 200){
+        this.$message.success("重置默认密码成功");
+      }else{
+        this.$message.error("重置默认密码失败");
+      }
     }
   },
   watch:{

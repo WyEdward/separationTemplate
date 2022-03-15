@@ -5,6 +5,7 @@ import cn.wyedward.core.entity.sys.Permission;
 import cn.wyedward.core.entity.sys.dto.PermissionDto;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface PermissionService extends IService<Permission> {
