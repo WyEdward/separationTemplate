@@ -1,5 +1,6 @@
 package cn.wyedward.manage.hour.controller;
 
+import cn.wyedward.core.annotation.Log;
 import cn.wyedward.core.common.ResponseBo;
 import cn.wyedward.core.entity.hour.Department;
 import cn.wyedward.core.entity.hour.vo.DepartmentVo;

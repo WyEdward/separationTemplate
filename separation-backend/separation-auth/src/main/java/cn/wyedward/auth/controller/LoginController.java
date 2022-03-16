@@ -3,7 +3,7 @@ package cn.wyedward.auth.controller;
 import cn.wyedward.auth.service.PermissionService;
 import cn.wyedward.auth.service.RoleService;
 import cn.wyedward.auth.service.UserService;
-import cn.wyedward.auth.utils.JwtUtil;
+import cn.wyedward.core.utils.JwtUtil;
 import cn.wyedward.auth.utils.MD5Utils;
 import cn.wyedward.core.common.ResponseBo;
 import cn.wyedward.core.entity.sys.Permission;
@@ -26,7 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Api(value = "用户登录Controller")

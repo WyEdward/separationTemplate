@@ -2,7 +2,7 @@ package cn.wyedward.auth.filter;
 
 
 import cn.wyedward.auth.jwt.JwtToken;
-import cn.wyedward.auth.utils.JwtUtil;
+import cn.wyedward.core.utils.JwtUtil;
 import cn.wyedward.core.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
@@ -13,26 +13,6 @@ import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
