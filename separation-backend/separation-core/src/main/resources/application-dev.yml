@@ -15,3 +15,10 @@ mybatis-plus:
   global-config:
     db-config:
       table-prefix: sr_
+
+# log配置 给logback-spring.xml定义的字段
+logging:
+  logPath: D:\logStore\separationLog   #保存日志
+  lv: DEBUG  # 控制台日志输出级别
+  dateSize: 30 # 日志保存天数
+  projectName: separation #日志保存前缀
