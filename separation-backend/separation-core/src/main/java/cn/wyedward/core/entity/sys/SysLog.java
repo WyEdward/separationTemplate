@@ -1,5 +1,7 @@
 package cn.wyedward.core.entity.sys;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,6 +13,7 @@ import java.util.Date;
 @Data
 public class SysLog implements Serializable {
     private static final long serialVersionUID = -4057673078106388677L;
+    @TableId(type = IdType.AUTO)
     private Integer sysLogId;
     private Long SysLogUniqueId;
     private String userName;
