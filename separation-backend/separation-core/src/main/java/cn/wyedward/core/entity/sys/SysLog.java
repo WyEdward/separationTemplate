@@ -11,8 +11,8 @@ import java.util.Date;
 @Data
 public class SysLog implements Serializable {
     private static final long serialVersionUID = -4057673078106388677L;
-    private Integer logId;
-    private Long logUniqueId;
+    private Integer sysLogId;
+    private Long SysLogUniqueId;
     private String userName;
     private String operation;
     private Integer time;
@@ -20,5 +20,5 @@ public class SysLog implements Serializable {
     private String params;
     private String ip;
     private Date createTime;
-    private Integer logEnable;
+    private Integer sysLogEnable;
 }

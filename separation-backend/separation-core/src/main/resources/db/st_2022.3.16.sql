@@ -34,7 +34,7 @@ CREATE TABLE `sr_department` (
 
 /*Data for the table `sr_department` */
 
-insert  into `sr_department`(`department_id`,`department_unique_id`,`department_name`,`department_description`,`department_fid`,`department_enable`,`create_time`,`update_time`) values (1,0,'部门1','内容1',NULL,0,'2022-03-07 18:14:23','2022-03-07 18:25:38'),(2,0,'部门2','内容2',NULL,0,'2022-03-07 18:14:33',NULL),(3,0,'部门3','内容3',NULL,0,'2022-03-07 18:14:41',NULL),(4,0,'部门4','内容4',NULL,0,'2022-03-07 18:16:40',NULL),(11,0,'sdfsdf','sdfsd',NULL,0,'2022-03-07 18:30:03',NULL),(12,0,'sdfds','fsdf ',NULL,0,'2022-03-07 18:31:12',NULL),(13,0,'255','255',NULL,0,'2022-03-07 18:43:39',NULL),(14,0,'sdfsd','dsfsd',NULL,0,'2022-03-07 18:44:06',NULL),(15,0,'255','sfdsd',NULL,0,'2022-03-07 18:44:13',NULL),(16,0,'255','dsff',NULL,0,'2022-03-07 18:44:36',NULL),(17,0,'sdf','sdf',NULL,0,'2022-03-07 19:06:23',NULL),(18,0,'sdfsd','sdfsd',NULL,0,'2022-03-07 19:19:54',NULL),(19,0,'sdfsd','sdfsd',NULL,0,'2022-03-07 19:22:50',NULL),(20,0,'sdfsd','sdfsd',NULL,0,'2022-03-07 19:23:58',NULL);
+insert  into `sr_department`(`department_id`,`department_unique_id`,`department_name`,`department_description`,`department_fid`,`department_enable`,`create_time`,`update_time`) values (1,0,'部门1','内容1',NULL,0,'2022-03-07 18:14:23','2022-03-07 18:25:38'),(2,0,'部门2','内容2',NULL,0,'2022-03-07 18:14:33',NULL),(3,0,'部门3','内容3',NULL,0,'2022-03-07 18:14:41',NULL),(4,0,'部门4','内容4',NULL,0,'2022-03-07 18:16:40',NULL),(11,0,'sdfsdf','sdfsd',NULL,0,'2022-03-07 18:30:03',NULL),(12,0,'sdfds','fsdf ',NULL,0,'2022-03-07 18:31:12',NULL),(13,0,'255','255',NULL,0,'2022-03-07 18:43:39',NULL),(14,0,'sdfsd','dsfsd',NULL,0,'2022-03-07 18:44:06',NULL),(15,0,'255','sfdsd',NULL,0,'2022-03-07 18:44:13',NULL),(16,0,'255','dsff',NULL,0,'2022-03-07 18:44:36',NULL),(17,0,'sdf','sdf',NULL,0,'2022-03-07 19:06:23',NULL),(18,0,'sdfsd','sdfsd',NULL,0,'2022-03-07 19:19:54',NULL),(19,0,'sdfsd','sdfsd',NULL,0,'2022-03-07 19:22:50',NULL),(20,0,'sdfsd','sdfsd1',NULL,0,'2022-03-07 19:23:58','2022-03-16 15:06:53');
 
 /*Table structure for table `sr_job` */
 
@@ -112,8 +112,8 @@ insert  into `sr_role_permission`(`rp_id`,`rid`,`pid`) values (196,1,1),(197,1,2
 DROP TABLE IF EXISTS `sr_sys_log`;
 
 CREATE TABLE `sr_sys_log` (
-  `log_id` int(11) NOT NULL AUTO_INCREMENT,
-  `log_unique_id` bigint(255) DEFAULT NULL,
+  `sys_log_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sys_log_unique_id` bigint(255) DEFAULT NULL,
   `user_name` varchar(765) COLLATE utf8_bin DEFAULT NULL,
   `operation` varchar(765) COLLATE utf8_bin DEFAULT NULL,
   `time` int(11) DEFAULT NULL,
@@ -121,13 +121,13 @@ CREATE TABLE `sr_sys_log` (
   `params` varchar(765) COLLATE utf8_bin DEFAULT NULL,
   `ip` varchar(765) COLLATE utf8_bin DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
-  `log_enable` int(1) DEFAULT NULL,
-  PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `sys_log_enable` int(1) DEFAULT '0',
+  PRIMARY KEY (`sys_log_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 /*Data for the table `sr_sys_log` */
 
-insert  into `sr_sys_log`(`log_id`,`log_unique_id`,`user_name`,`operation`,`time`,`method`,`params`,`ip`,`create_time`,`log_enable`) values (1,NULL,'superAdmin','删除部门',161,'cn.wyedward.manage.hour.controller.DepartmentController.remove()','  departmentId: 25','0:0:0:0:0:0:0:1','2022-03-16 14:20:14',NULL),(2,NULL,'admin','删除部门',4,'cn.wyedward.manage.hour.controller.DepartmentController.remove()','  departmentId: 24','0:0:0:0:0:0:0:1','2022-03-16 14:21:04',NULL);
+insert  into `sr_sys_log`(`sys_log_id`,`sys_log_unique_id`,`user_name`,`operation`,`time`,`method`,`params`,`ip`,`create_time`,`sys_log_enable`) values (1,NULL,'superAdmin','删除部门',161,'cn.wyedward.manage.hour.controller.DepartmentController.remove()','  departmentId: 25','0:0:0:0:0:0:0:1','2022-03-16 14:20:14',NULL),(2,NULL,'admin','删除部门',4,'cn.wyedward.manage.hour.controller.DepartmentController.remove()','  departmentId: 24','0:0:0:0:0:0:0:1','2022-03-16 14:21:04',NULL),(3,NULL,'superAdmin','创建更新部门',8,'cn.wyedward.manage.hour.controller.DepartmentController.insertOrUpdate()','  department: Department(departmentId=20, departmentUniqueId=null, departmentName=sdfsd, departmentDescription=sdfsd1, departmentFid=null, departmentEnable=null, createTime=null, updateTime=Wed Mar 16 15:06:53 CST 2022)','0:0:0:0:0:0:0:1','2022-03-16 15:06:53',NULL);
 
 /*Table structure for table `sr_user` */
 
